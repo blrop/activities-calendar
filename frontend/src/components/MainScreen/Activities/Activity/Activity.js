@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
+import classNames from 'classnames';
 
 export default class Activity extends Component {
     static propTypes = {
+        onClick: PropTypes.func.isRequired,
+
         title: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
+        active: PropTypes.bool.isRequired,
     };
 
     constructor(props) {
@@ -14,16 +18,18 @@ export default class Activity extends Component {
     }
 
     onClick() {
-        const { id } = this.props;
+        const { id, onClick } = this.props;
 
-        console.log(`An activity with id=${id} was clicked`);
+        onClick(id);
     }
 
     render() {
-        const { title } = this.props;
+        const { title, active } = this.props;
 
         return (
-            <button onClick={this.onClick}>{title}</button>
+            <div className={classNames("activity-list__item", { 'activity-list__item--active': active })}>
+                <button onClick={this.onClick}>{title}</button>
+            </div>
         );
     }
 }

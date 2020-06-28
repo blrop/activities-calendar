@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-import Activities from "~/components/MainScreen/Activities/Activities";
+import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
+import './MainScreen.scss';
 
 export default class MainScreen extends Component {
     static propTypes = {
-        activities: PropTypes.object,
-
         loadActivities: PropTypes.func.isRequired,
-    };
-
-    static defaultProps = {
-        activities: {},
     };
 
     componentDidMount() {

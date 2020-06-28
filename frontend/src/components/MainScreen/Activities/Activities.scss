@@ -1,0 +1,15 @@
+.activity-list {
+    &__item {
+        padding: 5px;
+        &--active {
+            button {
+                background: transparent;
+                color: #61dafb;
+                &:hover {
+                    color: white;
+                    background: transparent;
+                }
+            }
+        }
+    }
+}

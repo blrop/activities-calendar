@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import appReducer from "./appReducer";
+import activityLogReducer from "./activityLogReducer";
+import activitiesReducer from "./activitiesReducer";
 
 export default () => combineReducers({
-    appReducer,
+    activityLogReducer,
+    activitiesReducer,
 });

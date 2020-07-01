@@ -1,0 +1,15 @@
+.activity-log-item {
+    &__date {
+        font-size: 12px;
+    }
+
+    &__details {
+        display: flex;
+    }
+
+    &__marker {
+        width: 15px;
+        height: 15px;
+        margin: 2px;
+    }
+}

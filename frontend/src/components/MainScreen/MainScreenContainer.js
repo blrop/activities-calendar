@@ -3,7 +3,17 @@ import { connect } from 'react-redux';
 import MainScreen from './MainScreen';
 import { loadActivities } from "~/actions/activitiesActions";
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({
+    activityLogReducer: {
+        log: activityLog,
+    },
+    activitiesReducer: {
+        items: activities,
+    },
+}) => ({
+    activityLog,
+    activities,
+});
 
 const mapDispatchToProps = {
     loadActivities,

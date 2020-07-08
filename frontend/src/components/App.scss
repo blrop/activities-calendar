@@ -1,24 +1,75 @@
-$main-color: #61dafb;
-$bg-color: #282c34;
+$main-color: #cfd2d6;
+$bg-color: #2d2d2d;
+$border-color: #697075;
+$selected-color: #f48024;
 
-.app {
+body {
     background-color: $bg-color;
     color: $main-color;
-    min-height: 100%;
     padding: 10px;
 }
 
-button {
+.button-primary {
     padding: 5px 10px;
-    background: $main-color;
-    border: 2px solid $main-color;
-    color: $bg-color;
+    background: #3e4a52;
+    border: 1px solid #cde1ee;
+    color: #cde1ee;
     cursor: pointer;
+
     &:hover {
-        background: #2d849c;
+        background: #43525f;
+        color: #cde1ee;
     }
+
     &:focus {
         outline: none;
-        border-color: white;
+        border-color: $selected-color;
+        color: $selected-color;
+    }
+}
+
+.button-secondary {
+    padding: 0;
+    border: none;
+    background: none;
+    color: $main-color;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 1px $selected-color;
+        border-radius: 3px;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 5px;
+    background: $bg-color;
+    border: 1px solid $border-color;
+    color: $main-color;
+
+    &:focus {
+        outline: none;
+        border-color: $selected-color;
+    }
+}
+
+.form-group {
+    margin-bottom: 10px;
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    &__error {
+        font-size: 12px;
+        color: #f42424;
+        margin-top: 5px;
     }
 }

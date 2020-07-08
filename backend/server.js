@@ -40,23 +40,24 @@ app.post('/login', passport.authenticate('local'), (request, response) => {
     response.json({ success: true });
 });
 
-app.post('/register', async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+app.post('/register', async (request, response) => {
+    const hashedPassword = await bcrypt.hash(request.body.password, 10);
     users.push({
         id: Date.now().toString(),
-        name: req.body.name,
-        email: req.body.email,
+        name: request.body.name,
+        email: request.body.email,
         password: hashedPassword,
     });
 });
 
-app.post('/logout', (req, res) => {
-    req.logOut();
+app.post('/logout', (request, response) => {
+    request.logOut();
+    response.json({ success: true });
 });
 
-// function checkAuthenticated(req, res, next) {
-//     if (!req.isAuthenticated()) {
-//         res.status(403).send({ error: 'Authentication required' });
+// function checkAuthenticated(request, response, next) {
+//     if (!request.isAuthenticated()) {
+//         response.status(403).send({ error: 'Authentication required' });
 //     }
 //     next();
 // }

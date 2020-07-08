@@ -11,6 +11,7 @@ export default class MainScreen extends Component {
         activities: PropTypes.object.isRequired,
 
         loadActivities: PropTypes.func.isRequired,
+        logout: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
@@ -20,19 +21,24 @@ export default class MainScreen extends Component {
     }
 
     render() {
-        const { activities, activityLog } = this.props;
+        const { activities, activityLog, logout } = this.props;
 
         return (
-            <div className="main-screen-wrapper">
-                <div className="screen-block">
-                    <h2>Today</h2>
-                    <Activities />
+            <>
+                <div className="main-screen-header">
+                    <button onClick={logout}>Log out</button>
                 </div>
-                <div className="screen-block">
-                    <h2>Recently</h2>
-                    <ActivityLog activityLog={activityLog} activities={activities} />
+                <div className="main-screen-wrapper">
+                    <div className="screen-block">
+                        <h2>Today</h2>
+                        <Activities />
+                    </div>
+                    <div className="screen-block">
+                        <h2>Recently</h2>
+                        <ActivityLog activityLog={activityLog} activities={activities} />
+                    </div>
                 </div>
-            </div>
+            </>
         );
     }
 }

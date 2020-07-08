@@ -6,7 +6,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.GOT_LOGIN_RESULT:
+        case types.AUTH_STATE_WAS_CHANGED:
             return {
                 ...state,
                 isLoggedIn: action.payload.isLoggedIn,

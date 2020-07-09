@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import MainScreen from "~/components/MainScreen/MainScreenContainer";
 import UnauthorizedScreen from "./UnauthorizedScreen/UnauthorizedScreen";
-import './App.scss';
+import './common.scss';
 
 export default class App extends Component {
     static propTypes = {

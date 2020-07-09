@@ -7,6 +7,7 @@ export default class Activity extends Component {
         onClick: PropTypes.func.isRequired,
 
         title: PropTypes.string.isRequired,
+        colorId: PropTypes.string.isRequired,
         id: PropTypes.string.isRequired,
         active: PropTypes.bool.isRequired,
     };
@@ -24,10 +25,14 @@ export default class Activity extends Component {
     }
 
     render() {
-        const { title, active } = this.props;
+        const { title, colorId, active } = this.props;
 
         return (
-            <div className={classNames("activity-list__item", { 'activity-list__item--active': active })}>
+            <div className={classNames(
+                "activity-list__item",
+                `activity-list__item--color-${colorId}`,
+                { 'activity-list__item--active': active }
+            )}>
                 <button onClick={this.onClick}>{title}</button>
             </div>
         );

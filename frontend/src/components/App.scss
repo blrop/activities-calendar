@@ -1,7 +1,4 @@
-$main-color: #cfd2d6;
-$bg-color: #2d2d2d;
-$border-color: #697075;
-$selected-color: #f48024;
+@import 'src/variables.scss';
 
 body {
     background-color: $bg-color;
@@ -11,14 +8,14 @@ body {
 
 .button-primary {
     padding: 5px 10px;
-    background: #3e4a52;
-    border: 1px solid #cde1ee;
-    color: #cde1ee;
+    background: $button-bg-color;
+    border: 1px solid $button-main-color;
+    color: $button-main-color;
     cursor: pointer;
 
     &:hover {
-        background: #43525f;
-        color: #cde1ee;
+        background: $button-hovered-bg-color;
+        color: $button-main-color;
     }
 
     &:focus {
@@ -69,7 +66,7 @@ input[type="password"] {
 
     &__error {
         font-size: 12px;
-        color: #f42424;
+        color: $error-color;
         margin-top: 5px;
     }
 }

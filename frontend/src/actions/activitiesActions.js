@@ -11,23 +11,23 @@ export const loadActivities = () => (dispatch) => {
     const activitiesMock = {
         100: {
             title: 'Activity 1',
-            color: '#0BD9E3',
+            colorId: '1',
         },
         101: {
             title: 'Activity 2',
-            color: '#0CED2B',
+            colorId: '2',
         },
         102: {
             title: 'Activity 3',
-            color: '#CDD600',
+            colorId: '3',
         },
         103: {
             title: 'Activity 4',
-            color: '#F0A500',
+            colorId: '4',
         },
         104: {
             title: 'Activity 5',
-            color: '#E64307',
+            colorId: '5',
         },
     };
 

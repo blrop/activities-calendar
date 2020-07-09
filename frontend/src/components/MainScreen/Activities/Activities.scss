@@ -1,13 +1,45 @@
+@import 'src/variables.scss';
+
 .activity-list {
     &__item {
-        padding: 5px;
+        padding: 2px;
+        margin-bottom: 5px;
+        border: 1px solid $border-color;
+
+        &:focus-within {
+            border-color: $selected-color;
+        }
+
+        button {
+            width: 100%;
+            background: $bg-color;
+            padding: 10px;
+            color: $button-main-color;
+            border: none;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
         &--active {
-            button {
-                background: transparent;
-                color: #61dafb;
-                &:hover {
-                    color: white;
-                    background: transparent;
+            border-style: dashed;
+        }
+
+        @each $key, $value in $activity-colors {
+            &--color-#{$key} {
+                button {
+                    box-shadow: 0 0 2px 1px $value inset;
+                }
+            }
+            &--color-#{$key}#{&}--active {
+                button {
+                    box-shadow: none;
+
+                    &:before {
+                        content: '\2714';
+                    }
                 }
             }
         }

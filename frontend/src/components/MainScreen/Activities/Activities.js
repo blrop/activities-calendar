@@ -46,6 +46,7 @@ export default class Activities extends Component {
                 {_.map(activities, (item, id) => (
                     <Activity
                         title={item.title}
+                        colorId={item.colorId}
                         key={id} id={id}
                         onClick={this.toggleActivity}
                         active={currentActivities.includes(id)}

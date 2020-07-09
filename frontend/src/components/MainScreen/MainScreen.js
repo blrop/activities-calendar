@@ -26,15 +26,15 @@ export default class MainScreen extends Component {
         return (
             <>
                 <div className="main-screen-header">
-                    <button onClick={logout}>Log out</button>
+                    <button onClick={logout} className="button-secondary">Log out</button>
                 </div>
                 <div className="main-screen-wrapper">
                     <div className="screen-block">
-                        <h2>Today</h2>
+                        <div className="screen-block__title">Today</div>
                         <Activities />
                     </div>
                     <div className="screen-block">
-                        <h2>Recently</h2>
+                        <div className="screen-block__title">Recently</div>
                         <ActivityLog activityLog={activityLog} activities={activities} />
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import './ActivityLog.scss';
 
@@ -28,9 +29,8 @@ export default class ActivityLog extends Component {
             return (
                 <div
                     key={id}
-                    className="activity-log-item__marker"
+                    className={classNames('activity-log-item__marker', `activity-log-item__marker--color-${activity.colorId}`)}
                     title={activity.title}
-                    style={{ backgroundColor: activity.color }}
                 />
             );
         });
@@ -41,7 +41,7 @@ export default class ActivityLog extends Component {
 
         return _.map(activityLog, (activitiesIds, key) => (
             <div className="activity-log-item" key={key}>
-                <div className="activity-log-item__date">{key}</div>
+                <div className="activity-log-item__date">{key}:</div>
                 <div className="activity-log-item__details">
                     {this.renderMarkers(activitiesIds)}
                 </div>

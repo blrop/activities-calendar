@@ -1,6 +1,13 @@
+@import 'src/variables.scss';
+
 .activity-log-item {
+    display: flex;
+    align-items: center;
+    height: 30px;
+
     &__date {
         font-size: 12px;
+        margin-right: 10px;
     }
 
     &__details {
@@ -8,8 +15,15 @@
     }
 
     &__marker {
-        width: 15px;
-        height: 15px;
+        width: 10px;
+        height: 10px;
         margin: 2px;
+        border-radius: 5px;
+
+        @each $key, $value in $activity-colors {
+            &--color-#{$key} {
+                background: $value;
+            }
+        }
     }
 }

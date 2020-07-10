@@ -37,8 +37,9 @@ export default function MainScreen(props) {
 
             {isMenuOpen &&
                 <div className="screen-menu">
-                    <button className="screen-menu__item">Edit Actions</button>
-                    <button className="screen-menu__item" onClick={logout} >Log out</button>
+                    <button className="screen-menu__item">Edit Activities</button>
+                    <button className="screen-menu__item">Change Password</button>
+                    <button className="screen-menu__item" onClick={logout}>Log out</button>
                 </div>
             }
 

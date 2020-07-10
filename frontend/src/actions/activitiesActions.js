@@ -29,6 +29,14 @@ export const loadActivities = () => (dispatch) => {
             title: 'Activity 5',
             colorId: '5',
         },
+        105: {
+            title: 'Activity 6',
+            colorId: '6',
+        },
+        106: {
+            title: 'Activity 7',
+            colorId: '7',
+        },
     };
 
     dispatch(activitiesLoaded(activitiesMock));

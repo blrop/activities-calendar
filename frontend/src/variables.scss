@@ -9,10 +9,32 @@ $button-main-color: #cde1ee;
 
 $error-color: #f42424;
 
+$activity-color-saturation: 70%;
+$activity-color-lightness1: 25%;
+$activity-color-lightness2: 50%;
+$activity-color-lightness3: 75%;
 $activity-colors: (
-        1: #0BD9E3,
-        2: #0CED2B,
-        3: #CDD600,
-        4: #F0A500,
-        5: #E64307
+        1: hsl(0, $activity-color-saturation, $activity-color-lightness1),
+        2: hsl(25, $activity-color-saturation, $activity-color-lightness1),
+        3: hsl(50, $activity-color-saturation, $activity-color-lightness1),
+        4: hsl(110, $activity-color-saturation, $activity-color-lightness1),
+        5: hsl(175, $activity-color-saturation, $activity-color-lightness1),
+        6: hsl(210, $activity-color-saturation, $activity-color-lightness1),
+        7: hsl(280, $activity-color-saturation, $activity-color-lightness1),
+
+        8: hsl(0, $activity-color-saturation, $activity-color-lightness2),
+        9: hsl(25, $activity-color-saturation, $activity-color-lightness2),
+        10: hsl(50, $activity-color-saturation, $activity-color-lightness2),
+        11: hsl(110, $activity-color-saturation, $activity-color-lightness2),
+        12: hsl(175, $activity-color-saturation, $activity-color-lightness2),
+        13: hsl(210, $activity-color-saturation, $activity-color-lightness2),
+        14: hsl(280, $activity-color-saturation, $activity-color-lightness2),
+
+        15: hsl(0, $activity-color-saturation, $activity-color-lightness3),
+        16: hsl(25, $activity-color-saturation, $activity-color-lightness3),
+        17: hsl(50, $activity-color-saturation, $activity-color-lightness3),
+        18: hsl(110, $activity-color-saturation, $activity-color-lightness3),
+        19: hsl(175, $activity-color-saturation, $activity-color-lightness3),
+        20: hsl(210, $activity-color-saturation, $activity-color-lightness3),
+        21: hsl(280, $activity-color-saturation, $activity-color-lightness3),
 );

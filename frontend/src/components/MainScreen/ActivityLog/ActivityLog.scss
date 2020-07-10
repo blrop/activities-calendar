@@ -3,15 +3,17 @@
 .activity-log-item {
     display: flex;
     align-items: center;
-    height: 30px;
+    min-height: 30px;
 
     &__date {
         font-size: 12px;
-        margin-right: 10px;
+        width: 75px;
+        flex-shrink: 0;
     }
 
     &__details {
         display: flex;
+        flex-wrap: wrap;
     }
 
     &__marker {

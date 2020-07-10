@@ -1,7 +1,7 @@
 @import 'src/variables.scss';
 
 .screen-wrapper {
-    width: 500px;
+    width: $default-screen-width;
     max-width: 100%;
     margin: 0 auto;
     padding: 10px 0;
@@ -22,13 +22,17 @@
         font-size: 20px;
         padding: 0;
         line-height: 1;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 
 .screen-menu {
     display: inline-flex;
     flex-direction: column;
-    background: #333;
+    background: $screen-body-bg;
     margin-bottom: 10px;
     border: 1px solid $border-color;
 
@@ -43,7 +47,7 @@
 }
 
 .screen-body {
-    background: #333;
+    background: $screen-body-bg;
     flex-grow: 1;
     display: flex;
 
@@ -59,7 +63,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: $default-screen-width) {
     .screen-body {
         flex-direction: column;
 

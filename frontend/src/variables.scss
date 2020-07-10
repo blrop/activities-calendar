@@ -2,6 +2,7 @@ $main-color: #cfd2d6;
 $bg-color: #2d2d2d;
 $border-color: #697075;
 $selected-color: #f48024;
+$screen-body-bg: #333;
 
 $button-bg-color: #3e4a52;
 $button-hovered-bg-color: #43525f;
@@ -38,3 +39,5 @@ $activity-colors: (
         20: hsl(210, $activity-color-saturation, $activity-color-lightness3),
         21: hsl(280, $activity-color-saturation, $activity-color-lightness3),
 );
+
+$default-screen-width: 500px;

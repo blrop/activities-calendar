@@ -1,5 +1,9 @@
 @import 'src/variables.scss';
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: $bg-color;
     color: $main-color;
@@ -7,6 +11,7 @@ body {
 
 #root {
     display: flex;
+    justify-content: center;
 }
 
 button {
@@ -14,6 +19,10 @@ button {
     border: 1px solid transparent;
     cursor: pointer;
     color: $main-color;
+
+    &:hover {
+        text-decoration: underline;
+    }
 
     &:focus {
         outline: none;
@@ -39,10 +48,6 @@ button {
         box-shadow: 0 0 0 1px $selected-color;
         border-radius: 3px;
         border: none;
-    }
-
-    &:hover {
-        text-decoration: underline;
     }
 }
 

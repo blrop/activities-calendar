@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
 import ActivityLog from "~/components/MainScreen/ActivityLog/ActivityLog";
 import './MainScreen.scss';
+import Dialog from "~/components/Dialog/Dialog";
 
 export default function MainScreen(props) {
     const { loadActivities, activities, activityLog, logout } = props;
@@ -14,6 +15,7 @@ export default function MainScreen(props) {
     }, [loadActivities]);
 
     const [isMenuOpen, setMenuState] = useState(false);
+    const [isEditDialogOpen, setEditDialogState] = useState(false);
 
     return (
         <div className="screen-wrapper">
@@ -26,7 +28,7 @@ export default function MainScreen(props) {
                                 'icon-close': isMenuOpen,
                             }
                         )}
-                        aria-label="Menu"
+                        aria-label={isMenuOpen ? 'Close' : 'Menu'}
                         onClick={toggleMenuState}
                     />
                 </div>
@@ -37,7 +39,7 @@ export default function MainScreen(props) {
 
             {isMenuOpen &&
                 <div className="screen-menu">
-                    <button className="screen-menu__item">Edit Activities</button>
+                    <button className="screen-menu__item" onClick={showEditDialog}>Edit Activities</button>
                     <button className="screen-menu__item">Change Password</button>
                     <button className="screen-menu__item" onClick={logout}>Log out</button>
                 </div>
@@ -53,11 +55,27 @@ export default function MainScreen(props) {
                     <ActivityLog activityLog={activityLog} activities={activities} />
                 </div>
             </div>
+
+            <Dialog
+                isShown={isEditDialogOpen}
+                onClose={hideEditDialog}
+                title="Edit Activities"
+            >
+                Dialog content!!!
+            </Dialog>
         </div>
     );
 
     function toggleMenuState() {
         setMenuState(!isMenuOpen);
+    }
+
+    function showEditDialog() {
+        setEditDialogState(true);
+    }
+
+    function hideEditDialog() {
+        setEditDialogState(false);
     }
 }
 

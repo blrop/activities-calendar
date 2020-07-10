@@ -1,0 +1,46 @@
+@import 'src/variables.scss';
+
+.modal-dialog-wrapper {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $bg-color;
+}
+
+.modal-dialog {
+    background: $screen-body-bg;
+    position: relative;
+    min-width: $default-screen-width;
+    max-width: 100%;
+    padding: 10px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        flex-grow: 1;
+        font-size: 20px;
+        margin: 0 10px 0 0;
+    }
+
+    &__close-button {
+        font-size: 25px;
+        padding: 0;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__body {
+
+    }
+}

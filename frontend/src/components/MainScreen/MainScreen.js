@@ -31,13 +31,16 @@ export default function MainScreen(props) {
                     />
                 </div>
                 <div className="screen-header__item">
-                    <button onClick={logout} className="button-secondary">Log out</button>
+                    {props.user.name}
                 </div>
             </div>
 
-            {isMenuOpen && <div className="screen-menu">
-                menu goes here
-            </div>}
+            {isMenuOpen &&
+                <div className="screen-menu">
+                    <button className="screen-menu__item">Edit Actions</button>
+                    <button className="screen-menu__item" onClick={logout} >Log out</button>
+                </div>
+            }
 
             <div className="screen-body">
                 <div className="screen-body__block">
@@ -60,6 +63,7 @@ export default function MainScreen(props) {
 MainScreen.propTypes = {
     activityLog: PropTypes.object.isRequired,
     activities: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
 
     loadActivities: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,

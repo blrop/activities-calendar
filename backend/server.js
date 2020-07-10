@@ -31,13 +31,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/is-logged-in', (request, response) => {
+    const user = request.user ? { id: request.user.id, name: request.user.name } : null;
+
     response.json({
-        isAuthenticated: request.isAuthenticated(),
+        isLoggedIn: request.isAuthenticated(),
+        user,
     });
 });
 
 app.post('/login', passport.authenticate('local'), (request, response) => {
-    response.json({ success: true });
+    response.json({
+        isLoggedIn: true,
+        user: { id: request.user.id, name: request.user.name },
+    });
 });
 
 app.post('/register', async (request, response) => {

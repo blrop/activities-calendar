@@ -1,3 +1,5 @@
+@import 'src/variables.scss';
+
 .screen-wrapper {
     max-width: 500px;
     margin: 0 auto;
@@ -17,7 +19,20 @@
 }
 
 .screen-menu {
+    display: inline-flex;
+    flex-direction: column;
+    background: #333;
+    margin-bottom: 10px;
+    border: 1px solid $border-color;
 
+    &__item {
+        padding: 10px;
+        border-bottom: 1px solid $border-color;
+
+        &:last-child {
+            border: none;
+        }
+    }
 }
 
 .screen-body {

@@ -12,31 +12,27 @@ export default class App extends Component {
         register: PropTypes.func.isRequired,
 
         isLoggedIn: PropTypes.bool,
+        user: PropTypes.object,
     };
 
     static defaultProps = {
         isLoggedIn: null,
+        user: null,
     };
-
-    constructor(props) {
-        super(props);
-
-        this.userName = React.createRef();
-    }
 
     componentDidMount() {
         this.props.checkIsLoggedIn();
     }
 
     render() {
-        const { isLoggedIn, login, register } = this.props;
+        const { isLoggedIn, login, register, user } = this.props;
 
         if (isLoggedIn === null) {
             return 'Loading...';
         }
 
         if (isLoggedIn) {
-            return <MainScreen/>;
+            return <MainScreen user={user}/>;
         } else {
             return <UnauthorizedScreen loginAction={login} registerAction={register}/>
         }

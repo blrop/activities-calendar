@@ -2,6 +2,7 @@ import { types } from '~/actions/appActions';
 
 const initialState = {
     isLoggedIn: null,
+    user: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: action.payload.isLoggedIn,
+                user: action.payload.user,
             };
             
         default:

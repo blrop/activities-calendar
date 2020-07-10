@@ -3,7 +3,10 @@
 body {
     background-color: $bg-color;
     color: $main-color;
-    padding: 10px;
+}
+
+#root {
+    display: flex;
 }
 
 button {

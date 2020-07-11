@@ -9,7 +9,7 @@ export default function Dialog(props) {
     }
 
     return (
-        <div className="modal-dialog-wrapper">
+        <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <div className="modal-dialog">
                 <div className="modal-dialog__header">
                     <h1 className="modal-dialog__title">{props.title}</h1>
@@ -25,6 +25,12 @@ export default function Dialog(props) {
             </div>
         </div>
     );
+
+    function onWrapperClick(e) {
+        if (e.target === e.currentTarget) {
+            props.onClose();
+        }
+    }
 }
 
 Dialog.propTypes = {

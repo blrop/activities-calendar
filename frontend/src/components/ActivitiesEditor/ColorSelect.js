@@ -7,9 +7,9 @@ export default function ColorSelect(props) {
     const colorIds = [...Array(COLOR_MAX_ID).keys()];
 
     return (
-        <select className="color-select" onChange={onChange} value={props.value}>
+        <select className={`color-select color-select--color-${props.value}`} onChange={onChange} value={props.value}>
             {colorIds.map(colorId => (
-                <option key={colorId} value={colorId}/>
+                <option key={colorId} value={colorId} className={`color-select__option color-select__option--color-${colorId}`}/>
             ))}
         </select>
     );

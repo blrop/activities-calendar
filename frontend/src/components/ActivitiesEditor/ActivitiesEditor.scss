@@ -43,7 +43,13 @@
 .color-select {
     width: 150px;
 
-    option {
+    @each $key, $value in $activity-colors {
+        &--color-#{$key} {
+            background: $value;
+        }
 
+        &__option#{&}__option--color-#{$key} {
+            background: $value;
+        }
     }
 }

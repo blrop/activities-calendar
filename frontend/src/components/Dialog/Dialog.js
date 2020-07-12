@@ -22,6 +22,9 @@ export default function Dialog(props) {
                 <div className="modal-dialog__body">
                     {props.children}
                 </div>
+                <div className="modal-dialog__buttons">
+                    {props.buttons}
+                </div>
             </div>
         </div>
     );
@@ -36,6 +39,7 @@ export default function Dialog(props) {
 Dialog.propTypes = {
     isShown: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
+    buttons: PropTypes.object.isRequired,
 
     onClose: PropTypes.func.isRequired,
 };

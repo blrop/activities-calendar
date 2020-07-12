@@ -6,6 +6,7 @@ import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
 import ActivityLog from "~/components/MainScreen/ActivityLog/ActivityLog";
 import './MainScreen.scss';
 import Dialog from "~/components/Dialog/Dialog";
+import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
 
 export default function MainScreen(props) {
     const { loadActivities, activities, activityLog, logout } = props;
@@ -60,8 +61,14 @@ export default function MainScreen(props) {
                 isShown={isEditDialogOpen}
                 onClose={hideEditDialog}
                 title="Edit Activities"
+                buttons={(
+                    <>
+                        <button className="button-primary">Save</button>
+                        <button className="button-secondary" onClick={hideEditDialog}>Cancel</button>
+                    </>
+                )}
             >
-                Dialog content!!!
+                <ActivitiesEditor activities={activities} />
             </Dialog>
         </div>
     );

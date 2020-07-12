@@ -1,9 +1,8 @@
 @import 'src/variables.scss';
 
 .editable-activity {
-    margin: 10px;
-    padding: 10px;
-    display: flex;
+    margin: 0 10px;
+    padding: 15px 0;
     border-bottom: 1px solid $border-color;
 
     &--deleted {
@@ -38,5 +37,13 @@
             content: '\1f5d1';
             margin-right: 5px;
         }
+    }
+}
+
+.color-select {
+    width: 150px;
+
+    option {
+
     }
 }

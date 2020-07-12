@@ -1,0 +1,1 @@
+export const COLOR_MAX_ID = 21;

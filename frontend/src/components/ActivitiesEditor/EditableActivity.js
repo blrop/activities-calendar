@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 
+import ColorSelect from "./ColorSelect";
+
 export default function EditableActivity(props) {
     if (props.deleted) {
         return (
@@ -22,7 +24,7 @@ export default function EditableActivity(props) {
                 <button onClick={onDeleteClick} className="delete-button">Delete</button>
             </div>
             <div className="editable-activity__row2">
-                <ColorSelect onChange={onColorChange}/>
+                <ColorSelect onChange={onColorChange} value={props.item.colorId}/>
             </div>
         </div>
     );

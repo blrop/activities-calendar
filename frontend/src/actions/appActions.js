@@ -8,10 +8,10 @@ const authStateWasChanged = (isLoggedIn, user = null) => ({
 });
 
 export const checkIsLoggedIn = () => (dispatch) => {
-    fetch('/is-logged-in', { method: 'GET' })
+    fetch('/user', { method: 'GET' })
         .then(response => response.json())
-        .then(data => {
-            dispatch(authStateWasChanged(data.isLoggedIn, data.user));
+        .then(user => {
+            dispatch(authStateWasChanged(!!user, user));
         })
         .catch(error => {
             dispatch(authStateWasChanged(false));

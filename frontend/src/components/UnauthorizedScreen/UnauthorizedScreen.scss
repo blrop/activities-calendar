@@ -1,15 +1,10 @@
-.form-wrapper {
+.unauthorized-screen-form {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-}
 
-.form-block {
-
-}
-
-.form__buttons {
-    display: flex;
-    justify-content: space-between;
+    .form-group--bottom {
+        text-align: center;
+    }
 }

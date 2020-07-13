@@ -10,7 +10,7 @@ const session = require('express-session');
 
 const users = [{
     id: 0,
-    name: 'admin',
+    name: 'example',
     password: '1234',
 }];
 
@@ -30,13 +30,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/is-logged-in', (request, response) => {
+app.get('/user', (request, response) => {
     const user = request.user ? { id: request.user.id, name: request.user.name } : null;
 
-    response.json({
-        isLoggedIn: request.isAuthenticated(),
-        user,
-    });
+    response.json(user);
 });
 
 app.post('/login', passport.authenticate('local'), (request, response) => {
@@ -61,11 +58,38 @@ app.post('/logout', (request, response) => {
     response.json({ success: true });
 });
 
-// function checkAuthenticated(request, response, next) {
-//     if (!request.isAuthenticated()) {
-//         response.status(403).send({ error: 'Authentication required' });
-//     }
-//     next();
-// }
+app.get('/activities', checkAuthenticated, (request, response) => {
+    response.json([
+        {
+            title: 'Activity 1',
+            colorId: '8',
+        }, {
+            title: 'Activity 2',
+            colorId: '9',
+        }, {
+            title: 'Activity 3',
+            colorId: '10',
+        }, {
+            title: 'Activity 4',
+            colorId: '11',
+        }, {
+            title: 'Activity 5',
+            colorId: '12',
+        }, {
+            title: 'Activity 6',
+            colorId: '13',
+        }, {
+            title: 'Activity 7',
+            colorId: '14',
+        },
+    ]);
+});
+
+function checkAuthenticated(request, response, next) {
+    if (!request.isAuthenticated()) {
+        response.status(403).send({ error: 'Authentication required' });
+    }
+    next();
+}
 
 app.listen(3001);

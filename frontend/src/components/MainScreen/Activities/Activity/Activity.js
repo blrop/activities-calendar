@@ -8,7 +8,7 @@ export default class Activity extends Component {
 
         title: PropTypes.string.isRequired,
         colorId: PropTypes.string.isRequired,
-        id: PropTypes.string.isRequired,
+        index: PropTypes.number.isRequired,
         active: PropTypes.bool.isRequired,
     };
 
@@ -19,9 +19,9 @@ export default class Activity extends Component {
     }
 
     onClick() {
-        const { id, onClick } = this.props;
+        const { index, onClick } = this.props;
 
-        onClick(id);
+        onClick(index);
     }
 
     render() {

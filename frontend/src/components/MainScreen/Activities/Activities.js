@@ -1,55 +1,54 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import PropTypes from "prop-types";
 
 import Activity from "~/components/MainScreen/Activities/Activity/Activity";
-import { getCurrentDate } from "~/tools/tools";
 import './Activities.scss';
 
 export default class Activities extends Component {
     static propTypes = {
-        activities: PropTypes.object,
-        activityLog: PropTypes.object,
+        activities: PropTypes.array.isRequired,
+        activityLog: PropTypes.array.isRequired,
 
         logActivity: PropTypes.func.isRequired,
-    };
-
-    static defaultProps = {
-        activities: {},
     };
 
     constructor(props) {
         super(props);
 
         this.toggleActivity = this.toggleActivity.bind(this);
+        this.isActivityLogged = this.isActivityLogged.bind(this);
     }
 
-    toggleActivity(activityId) {
-        const { logActivity, dropActivity, activityLog } = this.props;
+    toggleActivity(index) {
+        const { logActivity, dropActivity, activityLog, activities } = this.props;
 
-        const currentDate = getCurrentDate();
-        const currentActivities = _.get(activityLog, `[${currentDate}]`, []);
-        if (currentActivities.includes(activityId)) {
-            dropActivity(currentDate, activityId);
+        if (this.isActivityLogged(activityLog, activities[index].title)) {
+            dropActivity(activities[index].title);
         } else {
-            logActivity(currentDate, activityId);
+            logActivity(activities[index].title, activities[index].colorId);
         }
+    }
+
+    isActivityLogged(activityLog, title) {
+        if (!activityLog.length) {
+            return false;
+        }
+        return activityLog[0].content.some(item => item.title === title);
     }
 
     render() {
         const { activities, activityLog } = this.props;
 
-        const currentActivities = _.get(activityLog, `[${getCurrentDate()}]`, []);
-
         return (
             <div className="activity-list">
-                {_.map(activities, (item, id) => (
+                {activities.map((item, index) => (
                     <Activity
                         title={item.title}
                         colorId={item.colorId}
-                        key={id} id={id}
+                        key={index}
+                        index={index}
                         onClick={this.toggleActivity}
-                        active={currentActivities.includes(id)}
+                        active={this.isActivityLogged(activityLog, item.title)}
                     />
                 ))}
             </div>

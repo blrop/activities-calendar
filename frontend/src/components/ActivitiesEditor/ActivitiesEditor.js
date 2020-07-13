@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import update from 'immutability-helper';
 
 import EditableActivity from "./EditableActivity";
 import './ActivitiesEditor.scss';
 
 
 export default function ActivitiesEditor(props) {
-    const [activities, setActivities] = useState(_.map(props.activities, (item, key) => ({
+    const [activities, setActivities] = useState(props.activities.map(item => ({
         data: item,
-        id: key,
         deleted: false,
     })));
 
-    return _.map(activities, (item) => {
+    return _.map(activities, (item, index) => {
         return (
             <EditableActivity
                 item={item.data}
-                id={item.id}
-                key={item.id}
+                index={index}
+                key={index}
                 deleted={item.deleted}
                 onTitleChange={onTitleChange}
                 onColorChange={onColorChange}
@@ -27,34 +27,41 @@ export default function ActivitiesEditor(props) {
         );
     });
 
-    function onTitleChange(id, value) {
-        setActivities(activities.map(item => {
-            if (item.id === id) {
-                item.data.title = value;
+    function onTitleChange(index, value) {
+        setActivities(update(activities, {
+            [index]: {
+                data: {
+                    title: {
+                        $set: value,
+                    }
+                }
             }
-            return item;
         }));
     }
 
-    function onColorChange(id, colorId) {
-        setActivities(activities.map(item => {
-            if (item.id === id) {
-                item.data.colorId = colorId;
+    function onColorChange(index, colorId) {
+        setActivities(update(activities, {
+            [index]: {
+                data: {
+                    colorId: {
+                        $set: colorId,
+                    },
+                }
             }
-            return item;
         }));
     }
 
-    function toggleActivityDeleted(id) {
-        setActivities(activities.map(item => {
-            if (item.id === id) {
-                item.deleted = !item.deleted;
+    function toggleActivityDeleted(index) {
+        setActivities(update(activities, {
+            [index]: {
+                deleted: {
+                    $set: !activities[index].deleted
+                },
             }
-            return item;
         }));
     }
 };
 
 ActivitiesEditor.propTypes = {
-    activities: PropTypes.object.isRequired,
+    activities: PropTypes.array.isRequired,
 };

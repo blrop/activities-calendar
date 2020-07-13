@@ -1,7 +1,7 @@
 import { types } from '~/actions/activitiesActions';
 
 const initialState = {
-    items: {},
+    items: [],
 };
 
 const reducer = (state = initialState, action) => {

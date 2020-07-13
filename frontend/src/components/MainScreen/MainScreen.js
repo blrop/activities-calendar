@@ -87,8 +87,8 @@ export default function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-    activityLog: PropTypes.object.isRequired,
-    activities: PropTypes.object.isRequired,
+    activityLog: PropTypes.array.isRequired,
+    activities: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
 
     loadActivities: PropTypes.func.isRequired,

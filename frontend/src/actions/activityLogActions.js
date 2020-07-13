@@ -3,12 +3,14 @@ export const types = {
     DROP_ACTIVITY: 'DROP_ACTIVITY',
 };
 
-export const logActivity = (currentDate, activityId) => ({
+export const logActivity = (title, colorId) => ({
     type: types.LOG_ACTIVITY,
-    payload: { currentDate, activityId },
+    payload: { title, colorId },
 });
 
-export const dropActivity = (currentDate, activityId) => ({
+export const dropActivity = (title) => ({
     type: types.DROP_ACTIVITY,
-    payload: { currentDate, activityId },
+    payload: { title },
 });
+
+// todo: add server requests before running redux actions

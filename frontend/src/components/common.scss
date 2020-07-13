@@ -77,6 +77,11 @@ input[type="password"] {
         color: $error-color;
         margin-top: 5px;
     }
+
+    &--buttons {
+        display: flex;
+        justify-content: space-between;
+    }
 }
 
 .icon-menu {

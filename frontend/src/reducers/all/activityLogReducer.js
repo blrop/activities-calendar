@@ -1,9 +1,13 @@
 import update from 'immutability-helper';
 
 import { types } from '~/actions/activityLogActions';
+import { getCurrentDate } from "~/tools/tools";
 
 const initialState = {
-    log: {},
+    log: [{ // todo: remove this initialization (along with the getCurrentDate func?)
+        date: getCurrentDate(),
+        content: [],
+    }],
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,13 +15,12 @@ const reducer = (state = initialState, action) => {
         case types.LOG_ACTIVITY:
             return update(state, {
                 log: {
-                    [action.payload.currentDate]: {
-                        $apply: (value) => {
-                            if (!value) {
-                                return [action.payload.activityId];
-                            } else {
-                                return [...value, action.payload.activityId];
-                            }
+                    0: {
+                        content: {
+                            $push: [{
+                                title: action.payload.title,
+                                colorId: action.payload.colorId,
+                            }]
                         }
                     }
                 }
@@ -26,9 +29,12 @@ const reducer = (state = initialState, action) => {
         case types.DROP_ACTIVITY:
             return update(state, {
                 log: {
-                    [action.payload.currentDate]: {
-                        $set: state.log[action.payload.currentDate]
-                            .filter(item => item !== action.payload.activityId)
+                    0: {
+                        content: {
+                            $set: state.log[0].content.filter(item =>
+                                item.title !== action.payload.title
+                            )
+                        }
                     }
                 }
             });

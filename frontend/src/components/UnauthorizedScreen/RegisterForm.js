@@ -11,29 +11,27 @@ export default function RegisterForm(props) {
     const [passwordError, setPasswordError] = useState(null);
 
     return (
-        <div className="form-wrapper">
-            <div className="form-block">
-                <form onSubmit={onSubmit}>
-                    <h2>Register</h2>
-                    <div className="form-group">
-                        <label htmlFor="username">User name:</label>
-                        <input type="text" id="username" name="username" required autoFocus {...userName}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" id="password" name="password" required {...password}/>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password2">Repeat Password:</label>
-                        <input type="password" id="password2" name="password2" required {...password2}/>
-                        {passwordError ? <div className="form-group__error">{passwordError}</div> : null}
-                    </div>
-                    <div className="form__buttons">
-                        <button type="submit" className="button-primary">Register</button>
-                        <button type="button" onClick={props.switchCallback} className="button-secondary">Login</button>
-                    </div>
-                </form>
-            </div>
+        <div className="unauthorized-screen-form">
+            <form onSubmit={onSubmit}>
+                <h2>Register</h2>
+                <div className="form-group">
+                    <label htmlFor="username">User name:</label>
+                    <input type="text" id="username" name="username" required autoFocus {...userName}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" name="password" required {...password}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password2">Repeat Password:</label>
+                    <input type="password" id="password2" name="password2" required {...password2}/>
+                    {passwordError ? <div className="form-group__error">{passwordError}</div> : null}
+                </div>
+                <div className="form-group form-group--buttons">
+                    <button type="submit" className="button-primary">Register</button>
+                    <button type="button" onClick={props.switchCallback} className="button-secondary">Login</button>
+                </div>
+            </form>
         </div>
     );
 

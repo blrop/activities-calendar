@@ -30,21 +30,21 @@ export default function EditableActivity(props) {
     );
 
     function onDeleteClick() {
-        props.onDeleteClick(props.id);
+        props.onDeleteClick(props.index);
     }
 
     function onTitleChange(e) {
-        props.onTitleChange(props.id, e.target.value);
+        props.onTitleChange(props.index, e.target.value);
     }
 
     function onColorChange(colorId) {
-        props.onColorChange(props.id, colorId);
+        props.onColorChange(props.index, colorId);
     }
 }
 
 EditableActivity.propTypes = {
     item: PropTypes.object.isRequired,
-    id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
     deleted: PropTypes.bool.isRequired,
 
     onTitleChange: PropTypes.func.isRequired,

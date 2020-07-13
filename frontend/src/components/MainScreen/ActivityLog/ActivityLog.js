@@ -1,42 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import classNames from 'classnames';
 
 import './ActivityLog.scss';
 
-export default class ActivityLog extends Component {
-    static propTypes = {
-        activityLog: PropTypes.array.isRequired,
-    };
+export default function ActivityLog(props) {
+    const [expanded, setExpanded] = useState(false);
 
-    constructor(props) {
-        super(props);
+    return props.activityLog.map((item, index) => (
+        <div className={classNames('activity-log-item', { 'activity-log-item--expanded': expanded })}
+             key={index}
+             onClick={toggleExpanded}>
+            <div className="activity-log-item__date">{item.date}:</div>
+            <div className="activity-log-item__details">
+                {expanded ? renderMarkersColumn(item.content) : renderMarkersRow(item.content)}
+            </div>
+        </div>
+    ));
 
-        this.renderMarkers = this.renderMarkers.bind(this);
+    function renderMarkersColumn(activityContent) {
+        return activityContent.map((marker, index) => {
+            return (
+                <div className="activity-log-item__inner-wrapper">
+                    <div
+                        key={index}
+                        className={`activity-log-item__marker activity-log-item__marker--color-${marker.colorId}`}
+                        title={marker.title}
+                    />
+                    <div className="activity-log-item__title">{marker.title}</div>
+                </div>
+
+
+            );
+        });
     }
 
-    renderMarkers(activityContent) {
+    function renderMarkersRow(activityContent) {
         return activityContent.map((marker, index) => {
             return (
                 <div
                     key={index}
-                    className={classNames('activity-log-item__marker', `activity-log-item__marker--color-${marker.colorId}`)}
+                    className={`activity-log-item__marker activity-log-item__marker--color-${marker.colorId}`}
                     title={marker.title}
                 />
             );
         });
     }
 
-    render() {
-        const { activityLog } = this.props;
-
-        return activityLog.map((item, index) => (
-            <div className="activity-log-item" key={index}>
-                <div className="activity-log-item__date">{item.date}:</div>
-                <div className="activity-log-item__details">
-                    {this.renderMarkers(item.content)}
-                </div>
-            </div>
-        ));
+    function toggleExpanded() {
+        setExpanded(!expanded);
     }
 }
+
+ActivityLog.propTypes = {
+    activityLog: PropTypes.array.isRequired,
+};

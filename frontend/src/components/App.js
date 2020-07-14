@@ -1,40 +1,38 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from "prop-types";
 
 import MainScreen from "~/components/MainScreen/MainScreenContainer";
 import UnauthorizedScreen from "./UnauthorizedScreen/UnauthorizedScreen";
 import './common.scss';
 
-export default class App extends Component {
-    static propTypes = {
-        checkIsLoggedIn: PropTypes.func.isRequired,
-        login: PropTypes.func.isRequired,
-        register: PropTypes.func.isRequired,
+export default function App(props) {
+    const { checkIsLoggedIn } = props;
 
-        isLoggedIn: PropTypes.bool,
-        user: PropTypes.object,
-    };
+    useEffect(() => {
+        checkIsLoggedIn();
+    }, [checkIsLoggedIn]);
 
-    static defaultProps = {
-        isLoggedIn: null,
-        user: null,
-    };
-
-    componentDidMount() {
-        this.props.checkIsLoggedIn();
+    if (props.isLoggedIn === null) {
+        return 'Loading...'; // todo: remove when loading indicator is implemented
     }
 
-    render() {
-        const { isLoggedIn, login, register, user } = this.props;
-
-        if (isLoggedIn === null) {
-            return 'Loading...';
-        }
-
-        if (isLoggedIn) {
-            return <MainScreen user={user}/>;
-        } else {
-            return <UnauthorizedScreen loginAction={login} registerAction={register}/>
-        }
+    if (props.isLoggedIn) {
+        return <MainScreen user={props.user}/>;
+    } else {
+        return <UnauthorizedScreen loginAction={props.login} registerAction={props.register}/>
     }
 }
+
+App.propTypes = {
+    checkIsLoggedIn: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+
+    isLoggedIn: PropTypes.bool,
+    user: PropTypes.object,
+};
+
+App.defaultProps = {
+    isLoggedIn: null,
+    user: null,
+};

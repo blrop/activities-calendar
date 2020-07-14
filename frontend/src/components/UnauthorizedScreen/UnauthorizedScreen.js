@@ -1,51 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import './UnauthorizedScreen.scss';
 
-export default class UnauthorizedScreen extends React.Component {
-    static LOGIN = 'login';
-    static REGISTER = 'register';
+export default function UnauthorizedScreen(props) {
+    const LOGIN = 'login';
+    const REGISTER = 'register';
 
-    static propTypes = {
-        loginAction: PropTypes.func.isRequired,
-        registerAction: PropTypes.func.isRequired,
-    };
+    const [formToShow, setFormToShow] = useState(LOGIN);
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            formToShow: UnauthorizedScreen.LOGIN,
-        };
-
-        this.showRegisterForm = this.showRegisterForm.bind(this);
-        this.showLoginForm = this.showLoginForm.bind(this);
+    function showLoginForm() {
+        setFormToShow(LOGIN);
     }
 
-    showLoginForm() {
-        this.setState({ formToShow: UnauthorizedScreen.LOGIN });
+    function showRegisterForm() {
+        setFormToShow(REGISTER);
     }
 
-    showRegisterForm() {
-        this.setState({ formToShow: UnauthorizedScreen.REGISTER });
+    switch (formToShow) {
+        case LOGIN:
+            return <LoginForm switchCallback={showRegisterForm} loginAction={props.loginAction}/>;
+
+        case REGISTER:
+            return <RegisterForm switchCallback={showLoginForm} registerAction={props.registerAction}/>;
+
+        default:
+            return null;
     }
+}
 
-    render() {
-        const { formToShow } = this.state;
-        const { loginAction, registerAction } = this.props;
-
-        switch (formToShow) {
-            case UnauthorizedScreen.LOGIN:
-                return <LoginForm switchCallback={this.showRegisterForm} loginAction={loginAction}/>;
-
-            case UnauthorizedScreen.REGISTER:
-                return <RegisterForm switchCallback={this.showLoginForm} registerAction={registerAction}/>;
-
-            default:
-                return null;
-        }
-    }
+UnauthorizedScreen.propTypes = {
+    loginAction: PropTypes.func.isRequired,
+    registerAction: PropTypes.func.isRequired,
 }

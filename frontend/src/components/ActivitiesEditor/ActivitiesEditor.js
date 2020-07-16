@@ -27,6 +27,7 @@ export default function ActivitiesEditor(props) {
                         className="modal-dialog__close-button icon-close"
                         aria-label="Close"
                         onClick={props.onClose}
+                        type="button"
                     />
                 </div>
                 <div className="modal-dialog__body">
@@ -53,7 +54,6 @@ export default function ActivitiesEditor(props) {
     }
 
     function renderBody() {
-        // console.log(activities);
         return _.map(activities, (item, index) => {
             return (
                 <EditableActivity

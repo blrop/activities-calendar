@@ -11,7 +11,7 @@ export default function EditableActivity(props) {
                     <div className="editable-activity__title">
                         {props.item.title}
                     </div>
-                    <button onClick={onDeleteClick} className="delete-button">Restore</button>
+                    <button type="button" onClick={onDeleteClick} className="delete-button">Restore</button>
                 </div>
             </div>
         );
@@ -21,7 +21,7 @@ export default function EditableActivity(props) {
         <div className="editable-activity">
             <div className="editable-activity__row1">
                 <input type="text" value={props.item.title} onChange={onTitleChange}/>
-                <button onClick={onDeleteClick} className="delete-button">Delete</button>
+                <button type="button" onClick={onDeleteClick} className="delete-button">Delete</button>
             </div>
             <div className="editable-activity__row2">
                 <ColorSelect onChange={onColorChange} value={props.item.colorId}/>

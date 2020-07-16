@@ -20,6 +20,7 @@ export default function PasswordChangeForm(props) {
                         className="modal-dialog__close-button icon-close"
                         aria-label="Close"
                         onClick={props.onClose}
+                        type="button"
                     />
                 </div>
                 <div className="modal-dialog__body">

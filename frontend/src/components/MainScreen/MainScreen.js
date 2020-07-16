@@ -4,9 +4,11 @@ import classNames from 'classnames';
 
 import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
 import ActivityLog from "~/components/MainScreen/ActivityLog/ActivityLog";
-import './MainScreen.scss';
-import Dialog from "~/components/Dialog/Dialog";
 import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
+import PasswordChangeForm from "./PasswordChangeForm";
+
+import './MainScreen.scss';
+import "~/components/dialog.scss";
 
 export default function MainScreen(props) {
     const { loadActivities, activities, activityLog, logout } = props;
@@ -17,6 +19,7 @@ export default function MainScreen(props) {
 
     const [isMenuOpen, setMenuState] = useState(false);
     const [isEditDialogOpen, setEditDialogState] = useState(false);
+    const [isPasswordChangeDialogOpen, setPasswordChangeDialogState] = useState(false);
 
     return (
         <div className="screen-wrapper">
@@ -41,7 +44,7 @@ export default function MainScreen(props) {
             {isMenuOpen &&
                 <div className="screen-menu">
                     <button className="screen-menu__item" onClick={showEditDialog}>Edit Activities</button>
-                    <button className="screen-menu__item">Change Password</button>
+                    <button className="screen-menu__item" onClick={showPasswordChangeDialog}>Change Password</button>
                     <button className="screen-menu__item" onClick={logout}>Log out</button>
                 </div>
             }
@@ -57,19 +60,18 @@ export default function MainScreen(props) {
                 </div>
             </div>
 
-            <Dialog
-                isShown={isEditDialogOpen}
+            {activities.length && <ActivitiesEditor
+                activities={activities}
+                onSubmit={onEditDialogSubmit}
                 onClose={hideEditDialog}
-                title="Edit Activities"
-                buttons={(
-                    <>
-                        <button className="button-primary">Save</button>
-                        <button className="button-secondary" onClick={hideEditDialog}>Cancel</button>
-                    </>
-                )}
-            >
-                <ActivitiesEditor activities={activities} />
-            </Dialog>
+                isShown={isEditDialogOpen}
+            />}
+
+            <PasswordChangeForm
+                onSubmit={onPasswordChangeDialogSubmit}
+                onClose={hidePasswordChangeDialog}
+                isShown={isPasswordChangeDialogOpen}
+            />
         </div>
     );
 
@@ -83,6 +85,22 @@ export default function MainScreen(props) {
 
     function hideEditDialog() {
         setEditDialogState(false);
+    }
+
+    function onEditDialogSubmit(data) {
+        console.log('Edit dialog was submitted!', data);
+    }
+
+    function showPasswordChangeDialog() {
+        setPasswordChangeDialogState(true);
+    }
+
+    function hidePasswordChangeDialog() {
+        setPasswordChangeDialogState(false);
+    }
+
+    function onPasswordChangeDialogSubmit(data) {
+        console.log('Password change dialog was submitted!', data);
     }
 }
 

@@ -60,6 +60,17 @@ export default function MainScreen(props) {
                 </div>
             </div>
 
+            <div className="screen-footer">
+                <div className="screen-footer__item">
+                    <span>Powered by:</span>
+                    <span className="screen-footer__react-icon" title="React"/>
+                    <span className="screen-footer__node-icon" title="Node.js"/>
+                </div>
+                <div className="screen-footer__item">
+                    <a href="https://github.com/blrop/activities-calendar" target="_blank">Source</a>
+                </div>
+            </div>
+
             {activities.length && <ActivitiesEditor
                 activities={activities}
                 onSubmit={onEditDialogSubmit}

@@ -9,6 +9,15 @@ body {
     color: $main-color;
 }
 
+a {
+    color: $main-color;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
 #root {
     display: flex;
     justify-content: center;

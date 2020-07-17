@@ -4,7 +4,6 @@
     width: $default-screen-width;
     max-width: 100%;
     margin: 0 auto;
-    padding: 10px 0;
     display: flex;
     flex-direction: column;
 }
@@ -12,7 +11,7 @@
 .screen-header {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px 10px;
+    padding: 10px;
 
     &__item {
 
@@ -60,6 +59,41 @@
         font-size: 25px;
         text-align: center;
         margin-bottom: 10px;
+    }
+}
+
+.screen-footer {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 12px;
+    line-height: 1.2;
+
+    &__item {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        > * {
+            margin: 0 5px;
+        }
+    }
+
+    &__node-icon {
+        display: inline-block;
+        vertical-align: center;
+        width: 32px;
+        height: 19px;
+        background: url('/node-icon.png');
+    }
+
+    &__react-icon {
+        display: inline-block;
+        vertical-align: center;
+        width: 24px;
+        height: 24px;
+        background: url('/react-icon.png');
     }
 }
 

@@ -23,7 +23,7 @@ export default function PasswordChangeForm(props) {
                         type="button"
                     />
                 </div>
-                <div className="modal-dialog__body">
+                <div className="modal-dialog__body modal-dialog__body--password-change">
                     <div className="form-group">
                         <label htmlFor="password">Old Password:</label>
                         <input type="password" id="password" required {...password}/>

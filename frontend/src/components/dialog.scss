@@ -51,6 +51,12 @@
         overflow-y: auto;
         display: flex;
         height: 100%;
+
+        &--password-change {
+            flex-direction: column;
+            padding: 10px;
+            align-items: center;
+        }
     }
 
     &__buttons {

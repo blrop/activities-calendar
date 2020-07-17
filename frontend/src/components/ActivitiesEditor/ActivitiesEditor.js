@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 
 import EditableActivity from "./EditableActivity";
 import './ActivitiesEditor.scss';
+import { DEFAULT_ACTIVITY_COLOR_ID } from "~/constants";
 
 
 export default function ActivitiesEditor(props) {
@@ -31,15 +32,34 @@ export default function ActivitiesEditor(props) {
                     />
                 </div>
                 <div className="modal-dialog__body">
-                    {renderBody()}
+                    <div className="editable-activities">
+                        <div className="editable-activities__list">
+                            {renderBody()}
+                        </div>
+                        <div className="editable-activities__new">
+                            <button type="button" onClick={addNewActivity}>Add activity</button>
+                        </div>
+                    </div>
                 </div>
                 <div className="modal-dialog__buttons">
-                    <button type="submit" className="button-primary">Save</button>
+                    <button type="submit" className="button-primary">Save changes</button>
                     <button type="button" className="button-secondary" onClick={props.onClose}>Cancel</button>
                 </div>
             </form>
         </div>
     );
+
+    function addNewActivity() {
+        setActivities(update(activities, {
+            $push: [{
+                data: {
+                    title: '',
+                    colorId: DEFAULT_ACTIVITY_COLOR_ID,
+                },
+                deleted: false,
+            }]
+        }));
+    }
 
     function onWrapperClick(e) {
         if (e.target === e.currentTarget) {

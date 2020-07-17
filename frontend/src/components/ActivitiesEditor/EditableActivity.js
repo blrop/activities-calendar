@@ -20,7 +20,7 @@ export default function EditableActivity(props) {
     return (
         <div className="editable-activity">
             <div className="editable-activity__row1">
-                <input type="text" value={props.item.title} onChange={onTitleChange}/>
+                <input type="text" value={props.item.title} onChange={onTitleChange} required/>
                 <button type="button" onClick={onDeleteClick} className="delete-button">Delete</button>
             </div>
             <div className="editable-activity__row2">

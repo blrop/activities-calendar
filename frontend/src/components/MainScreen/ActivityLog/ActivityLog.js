@@ -19,20 +19,16 @@ export default function ActivityLog(props) {
     ));
 
     function renderMarkersColumn(activityContent) {
-        return activityContent.map((marker, index) => {
-            return (
-                <div className="activity-log-item__inner-wrapper">
-                    <div
-                        key={index}
-                        className={`activity-log-item__marker activity-log-item__marker--color-${marker.colorId}`}
-                        title={marker.title}
-                    />
-                    <div className="activity-log-item__title">{marker.title}</div>
-                </div>
-
-
-            );
-        });
+        return activityContent.map((marker, index) => (
+            <div className="activity-log-item__inner-wrapper" key={index}>
+                <div
+                    key={index}
+                    className={`activity-log-item__marker activity-log-item__marker--color-${marker.colorId}`}
+                    title={marker.title}
+                />
+                <div className="activity-log-item__title">{marker.title}</div>
+            </div>
+        ));
     }
 
     function renderMarkersRow(activityContent) {

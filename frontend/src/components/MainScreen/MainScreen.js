@@ -11,14 +11,15 @@ import './MainScreen.scss';
 import "~/components/dialog.scss";
 
 export default function MainScreen(props) {
-    const { loadActivities, activities, activityLog, logout } = props;
+    const { loadActivities, activities, activityLog, logout,
+        saveActivities, editButtonPressed, isEditDialogShown,
+        dialogCancelButtonPressed } = props;
 
     useEffect(() => {
         loadActivities();
     }, [loadActivities]);
 
     const [isMenuOpen, setMenuState] = useState(false);
-    const [isEditDialogOpen, setEditDialogState] = useState(false);
     const [isPasswordChangeDialogOpen, setPasswordChangeDialogState] = useState(false);
 
     return (
@@ -43,7 +44,7 @@ export default function MainScreen(props) {
 
             {isMenuOpen &&
                 <div className="screen-menu">
-                    <button className="screen-menu__item" onClick={showEditDialog}>Edit Activities</button>
+                    <button className="screen-menu__item" onClick={editButtonPressed}>Edit Activities</button>
                     <button className="screen-menu__item" onClick={showPasswordChangeDialog}>Change Password</button>
                     <button className="screen-menu__item" onClick={logout}>Log out</button>
                 </div>
@@ -67,15 +68,15 @@ export default function MainScreen(props) {
                     <span className="screen-footer__node-icon" title="Node.js"/>
                 </div>
                 <div className="screen-footer__item">
-                    <a href="https://github.com/blrop/activities-calendar" target="_blank">Source</a>
+                    <a href="https://github.com/blrop/activities-calendar" target="_blank" rel="noopener noreferrer">Source</a>
                 </div>
             </div>
 
             {activities.length && <ActivitiesEditor
                 activities={activities}
                 onSubmit={onEditDialogSubmit}
-                onClose={hideEditDialog}
-                isShown={isEditDialogOpen}
+                onClose={dialogCancelButtonPressed}
+                isShown={isEditDialogShown}
             />}
 
             <PasswordChangeForm
@@ -90,16 +91,8 @@ export default function MainScreen(props) {
         setMenuState(!isMenuOpen);
     }
 
-    function showEditDialog() {
-        setEditDialogState(true);
-    }
-
-    function hideEditDialog() {
-        setEditDialogState(false);
-    }
-
     function onEditDialogSubmit(data) {
-        console.log('Edit dialog was submitted!', data);
+        saveActivities(data);
     }
 
     function showPasswordChangeDialog() {
@@ -119,7 +112,10 @@ MainScreen.propTypes = {
     activityLog: PropTypes.array.isRequired,
     activities: PropTypes.array.isRequired,
     user: PropTypes.object.isRequired,
+    isEditDialogShown: PropTypes.bool.isRequired,
 
     loadActivities: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
+    saveActivities: PropTypes.func.isRequired,
+    editButtonPressed: PropTypes.func.isRequired,
 };

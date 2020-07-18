@@ -9,10 +9,21 @@ import { DEFAULT_ACTIVITY_COLOR_ID } from "~/constants";
 
 
 export default function ActivitiesEditor(props) {
-    const activitiesInitialState = props.activities.map(item => ({
-        data: item,
-        deleted: false,
-    }));
+    const DTO = {
+        toInternalFormat(items) {
+            return items.map(item => ({
+                data: item,
+                deleted: false,
+            }));
+        },
+        fromInternalFormat(items) {
+            return items
+                .filter(item => !item.deleted)
+                .map(item => item.data);
+        }
+    };
+
+    const activitiesInitialState = DTO.toInternalFormat(props.activities);
     const [activities, setActivities] = useState(activitiesInitialState);
 
     if (!props.isShown) {
@@ -70,7 +81,7 @@ export default function ActivitiesEditor(props) {
     function onSubmit(e) {
         e.preventDefault();
 
-        props.onSubmit(activities);
+        props.onSubmit(DTO.fromInternalFormat(activities));
     }
 
     function renderBody() {

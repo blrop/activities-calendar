@@ -22,7 +22,7 @@ CREATE TABLE `users` (
   `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `registered_on` datetime NOT NULL,
   `last_login_on` datetime NOT NULL,
-  `activities` json NOT NULL,
+  `activities` json DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

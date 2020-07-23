@@ -8,29 +8,6 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const session = require('express-session');
 
-let activities = [{
-    title: 'Activity 1',
-    colorId: '8',
-}, {
-    title: 'Activity 2',
-    colorId: '9',
-}, {
-    title: 'Activity 3',
-    colorId: '10',
-}, {
-    title: 'Activity 4',
-    colorId: '11',
-}, {
-    title: 'Activity 5',
-    colorId: '12',
-}, {
-    title: 'Activity 6',
-    colorId: '13',
-}, {
-    title: 'Activity 7',
-    colorId: '14',
-}];
-
 const initializePassport = require('./passport-config');
 initializePassport(passport, getUserByName, getUserById);
 

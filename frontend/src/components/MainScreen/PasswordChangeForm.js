@@ -57,7 +57,6 @@ export default function PasswordChangeForm(props) {
         props.onSubmit({
             password: password.value,
             newPassword: newPassword.value,
-            newPassword2: newPassword2.value,
         });
     }
 };

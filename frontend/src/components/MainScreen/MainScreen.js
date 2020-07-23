@@ -13,7 +13,7 @@ import "~/components/dialog.scss";
 export default function MainScreen(props) {
     const { loadActivities, activities, activityLog, logout,
         saveActivities, editButtonPressed, isEditDialogShown,
-        dialogCancelButtonPressed } = props;
+        dialogCancelButtonPressed, passwordChange } = props;
 
     useEffect(() => {
         loadActivities();
@@ -103,8 +103,8 @@ export default function MainScreen(props) {
         setPasswordChangeDialogState(false);
     }
 
-    function onPasswordChangeDialogSubmit(data) {
-        console.log('Password change dialog was submitted!', data);
+    function onPasswordChangeDialogSubmit({ password, newPassword }) {
+        passwordChange({ password, newPassword });
     }
 }
 
@@ -118,4 +118,5 @@ MainScreen.propTypes = {
     logout: PropTypes.func.isRequired,
     saveActivities: PropTypes.func.isRequired,
     editButtonPressed: PropTypes.func.isRequired,
+    passwordChange: PropTypes.func.isRequired,
 };

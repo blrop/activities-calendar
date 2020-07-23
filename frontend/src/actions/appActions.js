@@ -69,11 +69,11 @@ export const register = (name, password) => () => {
         });
 };
 
-export const passwordChange = (newPassword) => (dispatch) => {
+export const passwordChange = ({ password, newPassword }) => (dispatch) => {
     fetch('/user/password-change', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ newPassword })
+        body: JSON.stringify({ password, newPassword })
     })
         .then(response => response.json())
         .then(() => {

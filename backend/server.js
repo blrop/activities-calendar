@@ -98,10 +98,13 @@ app.post('/user/logout', (request, response) => {
 });
 
 app.post('/user/password-change', checkAuthenticated, async (request, response) => {
-    // todo: check old password
+    const isOldPasswordCorrect = await bcrypt.compare(request.body.password, request.user.password);
+    if (!isOldPasswordCorrect) {
+        response.json({ success: false, message: 'Old password is incorrect' });
+        return;
+    }
 
     const hashedPassword = await bcrypt.hash(request.body.newPassword, 10);
-
     await promisePool.query("UPDATE users SET password = ? WHERE id = ?", [hashedPassword, request.user.id]);
     response.json({ success: true });
 });

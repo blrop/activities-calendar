@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import MainScreen from './MainScreen';
 import { loadActivities, saveActivities, editButtonPressed, dialogCancelButtonPressed } from "~/actions/activitiesActions";
-import { logout } from "~/actions/appActions";
+import { logout, passwordChange } from "~/actions/appActions";
 
 const mapStateToProps = ({
     activityLogReducer: {
@@ -24,6 +24,7 @@ const mapDispatchToProps = {
     saveActivities,
     editButtonPressed,
     dialogCancelButtonPressed,
+    passwordChange,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

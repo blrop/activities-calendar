@@ -1,16 +1,44 @@
 export const types = {
-    LOG_ACTIVITY: 'LOG_ACTIVITY',
-    DROP_ACTIVITY: 'DROP_ACTIVITY',
+    ACTIVITY_LOGGED: 'ACTIVITY_LOGGED',
+    ACTIVITY_DROPPED: 'ACTIVITY_DROPPED',
 };
 
-export const logActivity = (title, colorId) => ({
-    type: types.LOG_ACTIVITY,
+const activityLogged = (title, colorId) => ({
+    type: types.ACTIVITY_LOGGED,
     payload: { title, colorId },
 });
 
-export const dropActivity = (title) => ({
-    type: types.DROP_ACTIVITY,
+const activityDropped = (title) => ({
+    type: types.ACTIVITY_DROPPED,
     payload: { title },
 });
 
-// todo: add server requests before running redux actions
+export const logActivity = (title, colorId) => (dispatch) => {
+    fetch('/activity-log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, colorId })
+    })
+        .then(response => response.json())
+        .then(() => {
+            dispatch(activityLogged(title, colorId));
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+export const dropActivity = (title) => (dispatch) => {
+    fetch('/activity-log/last', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+    })
+        .then(response => response.json())
+        .then(() => {
+            dispatch(activityDropped(title));
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};

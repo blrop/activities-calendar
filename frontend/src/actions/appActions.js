@@ -20,7 +20,7 @@ export const checkIsLoggedIn = () => (dispatch) => {
 };
 
 export const login = (userName, password) => (dispatch) => {
-    fetch('/login', {
+    fetch('/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: userName, password: password }),
@@ -41,7 +41,7 @@ export const login = (userName, password) => (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
-    fetch('/logout', {
+    fetch('/user/logout', {
         method: 'POST',
     })
         .then(() => {
@@ -52,6 +52,34 @@ export const logout = () => (dispatch) => {
         });
 };
 
-export const register = (userName, password) => {
-    console.log(`Attempt to register with username=${userName} and password=${password}`);
+export const register = (name, password) => () => {
+    fetch('/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, password })
+    })
+        .then(response => response.json())
+        .then((data) => {
+            if (data.success) {
+
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+};
+
+export const passwordChange = (newPassword) => (dispatch) => {
+    fetch('/user/password-change', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ newPassword })
+    })
+        .then(response => response.json())
+        .then(() => {
+            
+        })
+        .catch(error => {
+            console.log(error);
+        });
 };

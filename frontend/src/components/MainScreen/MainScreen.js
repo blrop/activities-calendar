@@ -72,7 +72,7 @@ export default function MainScreen(props) {
                 </div>
             </div>
 
-            {activities.length && <ActivitiesEditor
+            {activities && <ActivitiesEditor
                 activities={activities}
                 onSubmit={onEditDialogSubmit}
                 onClose={dialogCancelButtonPressed}

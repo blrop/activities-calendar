@@ -12,7 +12,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.LOG_ACTIVITY:
+        case types.ACTIVITY_LOGGED:
             return update(state, {
                 log: {
                     0: {
@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
                 }
             });
 
-        case types.DROP_ACTIVITY:
+        case types.ACTIVITY_DROPPED:
             return update(state, {
                 log: {
                     0: {

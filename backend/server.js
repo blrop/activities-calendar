@@ -111,15 +111,17 @@ app.post('/user/password-change', checkAuthenticated, async (request, response) 
 
 // activities endpoints
 
-app.get('/activities', checkAuthenticated, (request, response) => {
-    // todo: should I store the activities in the user table?
-    pool.query("SELECT content FROM activities WHERE user_id = ?", [request.user.id], (error, data) => {
-        response.json(data);
-    });
+app.get('/activities', checkAuthenticated, async (request, response) => {
+    const [rows] = await promisePool.query("SELECT activities FROM users WHERE id = ?", [request.user.id]);
+    if (!rows.length) {
+        response.json({ success: false, message: `No users with id=${request.user.id}` });
+        return;
+    }
+    response.json(rows[0]);
 });
 
 app.post('/activities', checkAuthenticated, (request, response) => {
-    pool.query("UPDATE activities SET content = ? WHERE user_id = ?", [request.body, request.user.id], (error, data) => {
+    pool.query("UPDATE users SET activities = ? WHERE id = ?", [JSON.stringify(request.body), request.user.id], (error, data) => {
         response.json({
             success: true,
         });

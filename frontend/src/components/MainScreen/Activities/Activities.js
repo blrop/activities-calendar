@@ -5,6 +5,10 @@ import Activity from "~/components/MainScreen/Activities/Activity/Activity";
 import './Activities.scss';
 
 export default function Activities(props) {
+    if (!props.activities) {
+        return null;
+    }
+
     return (
         <div className="activity-list">
             {props.activities.map((item, index) => (
@@ -39,8 +43,12 @@ export default function Activities(props) {
 }
 
 Activities.propTypes = {
-    activities: PropTypes.array.isRequired,
+    activities: PropTypes.array,
     activityLog: PropTypes.array.isRequired,
 
     logActivity: PropTypes.func.isRequired,
+};
+
+Activities.defaultProps = {
+    activities: [],
 };

@@ -120,3 +120,7 @@ MainScreen.propTypes = {
     editButtonPressed: PropTypes.func.isRequired,
     passwordChange: PropTypes.func.isRequired,
 };
+
+MainScreen.defaultProps = {
+    activities: [],
+};

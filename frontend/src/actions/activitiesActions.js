@@ -26,8 +26,8 @@ export const dialogCancelButtonPressed = () => ({
 export const loadActivities = () => (dispatch) => {
     fetch('/activities', { method: 'GET' })
         .then(response => response.json())
-        .then(data => {
-            dispatch(activitiesLoaded(data));
+        .then(({ activities }) => {
+            dispatch(activitiesLoaded(activities));
         });
 };
 
@@ -35,7 +35,7 @@ export const saveActivities = (activities)  => (dispatch) => {
     fetch('/activities', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(activities)
+        body: activities,
     })
         .then(response => response.json())
         .then(() => {

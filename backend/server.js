@@ -120,12 +120,9 @@ app.get('/activities', checkAuthenticated, async (request, response) => {
     response.json(rows[0]);
 });
 
-app.post('/activities', checkAuthenticated, (request, response) => {
-    pool.query("UPDATE users SET activities = ? WHERE id = ?", [JSON.stringify(request.body), request.user.id], (error, data) => {
-        response.json({
-            success: true,
-        });
-    });
+app.post('/activities', checkAuthenticated, async (request, response) => {
+    await promisePool.query("UPDATE users SET activities = ? WHERE id = ?", [JSON.stringify(request.body), request.user.id]);
+    response.json({ success: true });
 });
 
 // activity log endpoints

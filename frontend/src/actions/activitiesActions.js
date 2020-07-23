@@ -35,7 +35,7 @@ export const saveActivities = (activities)  => (dispatch) => {
     fetch('/activities', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: activities,
+        body: JSON.stringify(activities),
     })
         .then(response => response.json())
         .then(() => {

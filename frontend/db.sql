@@ -29,9 +29,10 @@ CREATE TABLE `activity_log` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
-  `password` text NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `registered_on` datetime NOT NULL,
   `last_login_on` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

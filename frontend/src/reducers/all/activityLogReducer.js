@@ -30,33 +30,6 @@ const reducer = (state = initialState, action) => {
                 }
             });
 
-        // case types.ACTIVITY_LOGGED:
-        //     return update(state, {
-        //         log: {
-        //             0: {
-        //                 content: {
-        //                     $push: [{
-        //                         title: action.payload.title,
-        //                         colorId: action.payload.colorId,
-        //                     }]
-        //                 }
-        //             }
-        //         }
-        //     });
-        //
-        // case types.ACTIVITY_DROPPED:
-        //     return update(state, {
-        //         log: {
-        //             0: {
-        //                 content: {
-        //                     $set: state.log[0].content.filter(item =>
-        //                         item.title !== action.payload.title
-        //                     )
-        //                 }
-        //             }
-        //         }
-        //     });
-
         default:
             return state;
     }

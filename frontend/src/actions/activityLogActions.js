@@ -1,7 +1,5 @@
 export const types = {
     ACTIVITY_LOADED: 'ACTIVITY_LOADED',
-    // ACTIVITY_LOGGED: 'ACTIVITY_LOGGED',
-    // ACTIVITY_DROPPED: 'ACTIVITY_DROPPED',
     ACTIVITY_MODIFIED: 'ACTIVITY_MODIFIED',
 };
 
@@ -14,16 +12,6 @@ const activityModified = (content) => ({
     type: types.ACTIVITY_MODIFIED,
     payload: { content },
 });
-
-// const activityLogged = (title, colorId) => ({
-//     type: types.ACTIVITY_LOGGED,
-//     payload: { title, colorId },
-// });
-//
-// const activityDropped = (title) => ({
-//     type: types.ACTIVITY_DROPPED,
-//     payload: { title },
-// });
 
 export const loadLog = () => (dispatch) => {
     fetch('/activity-log', {

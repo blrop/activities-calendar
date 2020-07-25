@@ -105,7 +105,7 @@ app.post('/activities', checkAuthenticated, async (request, response) => {
 
 // activity log endpoints
 
-app.get('/activity-log', async (request, response) => {
+app.get('/activity-log', checkAuthenticated, async (request, response) => {
     const [rows] = await promisePool.query("SELECT date, content FROM activity_log WHERE user_id = ? ORDER BY date DESC", [request.user.id]);
 
     response.json({
@@ -113,7 +113,7 @@ app.get('/activity-log', async (request, response) => {
     });
 });
 
-app.post('/activity-log', async (request, response) => {
+app.post('/activity-log', checkAuthenticated, async (request, response) => {
     const lastRow = await getLastActivityLogRow(request.user.id);
 
     lastRow.content.push({
@@ -129,7 +129,7 @@ app.post('/activity-log', async (request, response) => {
     });
 });
 
-app.delete('/activity-log/last', async (request, response) => {
+app.delete('/activity-log/last', checkAuthenticated, async (request, response) => {
     const lastRow = await getLastActivityLogRow(request.user.id);
 
     const updatedContent = lastRow.content.filter(item => item.title !== request.body.title);
@@ -163,8 +163,9 @@ async function setActivityLogRow(rowId, rowContent) {
 function checkAuthenticated(request, response, next) {
     if (!request.isAuthenticated()) {
         response.status(403).send({ error: 'Authentication required' });
+    } else {
+        next();
     }
-    next();
 }
 
 async function getUserByName(name) {

@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
+const LOG_DATE_DEPTH_DAYS = 180;
+
 const express = require('express');
 const app = express();
 const bcrypt = require('bcrypt');
@@ -106,7 +108,11 @@ app.post('/activities', checkAuthenticated, async (request, response) => {
 // activity log endpoints
 
 app.get('/activity-log', checkAuthenticated, async (request, response) => {
-    const [rows] = await promisePool.query("SELECT date, content FROM activity_log WHERE user_id = ? ORDER BY date DESC", [request.user.id]);
+    const [rows] = await promisePool.query(`
+        SELECT date, content 
+        FROM activity_log 
+        WHERE user_id = ? AND date > DATE_ADD(NOW(), INTERVAL -? DAY) 
+        ORDER BY date DESC`, [request.user.id, LOG_DATE_DEPTH_DAYS]);
 
     response.json({
         log: rows,

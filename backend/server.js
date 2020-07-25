@@ -156,7 +156,8 @@ async function getLastActivityLogRow(userId) {
 }
 
 async function setActivityLogRow(rowId, rowContent) {
-    await promisePool.query("UPDATE activity_log SET content = ? WHERE id = ?", [JSON.stringify(rowContent), rowId]);
+    const sortedRowContent = rowContent.sort((a, b) => a.title > b.title ? 1 : -1);
+    await promisePool.query("UPDATE activity_log SET content = ? WHERE id = ?", [JSON.stringify(sortedRowContent), rowId]);
 }
 
 function checkAuthenticated(request, response, next) {

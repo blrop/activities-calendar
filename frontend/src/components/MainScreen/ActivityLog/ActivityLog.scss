@@ -3,11 +3,9 @@
 .activity-log-item {
     display: flex;
     align-items: center;
-    min-height: 30px;
     cursor: pointer;
-    margin-bottom: 20px;
     font-size: 14px;
-    padding: 5px;
+    margin-bottom: 2px;
 
     &:hover {
         background: $bg-color;

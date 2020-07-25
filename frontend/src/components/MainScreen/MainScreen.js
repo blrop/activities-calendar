@@ -73,18 +73,16 @@ export default function MainScreen(props) {
                 </div>
             </div>
 
-            {activities.length && <ActivitiesEditor
+            {isEditDialogShown && <ActivitiesEditor
                 activities={activities}
                 onSubmit={onEditDialogSubmit}
                 onClose={dialogCancelButtonPressed}
-                isShown={isEditDialogShown}
             />}
 
-            <PasswordChangeForm
+            {isPasswordChangeDialogOpen && <PasswordChangeForm
                 onSubmit={onPasswordChangeDialogSubmit}
                 onClose={hidePasswordChangeDialog}
-                isShown={isPasswordChangeDialogOpen}
-            />
+            />}
         </div>
     );
 

@@ -26,10 +26,6 @@ export default function ActivitiesEditor(props) {
     const activitiesInitialState = DTO.toInternalFormat(props.activities);
     const [activities, setActivities] = useState(activitiesInitialState);
 
-    if (!props.isShown) {
-        return null;
-    }
-
     return (
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <form onSubmit={onSubmit} className="modal-dialog">
@@ -137,7 +133,6 @@ export default function ActivitiesEditor(props) {
 
 ActivitiesEditor.propTypes = {
     activities: PropTypes.array.isRequired,
-    isShown: PropTypes.bool.isRequired,
 
     onSubmit: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,

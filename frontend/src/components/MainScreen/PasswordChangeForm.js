@@ -7,10 +7,6 @@ export default function PasswordChangeForm(props) {
     const newPassword = useFormInput('');
     const newPassword2 = useFormInput('');
 
-    if (!props.isShown) {
-        return null;
-    }
-
     return (
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <form onSubmit={onSubmit} className="modal-dialog">
@@ -62,8 +58,6 @@ export default function PasswordChangeForm(props) {
 };
 
 PasswordChangeForm.propTypes = {
-    isShown: PropTypes.bool.isRequired,
-
     onSubmit: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
 };

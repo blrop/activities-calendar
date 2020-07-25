@@ -7,6 +7,7 @@ const app = express();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const session = require('express-session');
+const moment = require('moment');
 
 const initializePassport = require('./passport-config');
 initializePassport(passport, getUserByName, getUserById);
@@ -104,35 +105,59 @@ app.post('/activities', checkAuthenticated, async (request, response) => {
 
 // activity log endpoints
 
-app.get('/activity-log', (request, response) => {
-    pool.query("SELECT date, content FROM activity_log WHERE user_id = ?", [request.user.id], (error, data) => {
-        
-    });
+app.get('/activity-log', async (request, response) => {
+    const [rows] = await promisePool.query("SELECT date, content FROM activity_log WHERE user_id = ? ORDER BY date DESC", [request.user.id]);
 
     response.json({
-        log: [],
+        log: rows,
     });
 });
 
-app.post('/activity-log', (request, response) => {
-    pool.query("", [], (error, data) => {
+app.post('/activity-log', async (request, response) => {
+    const lastRow = await getLastActivityLogRow(request.user.id);
 
+    lastRow.content.push({
+        title: request.body.title,
+        colorId: request.body.colorId,
     });
 
-    response.json({
-        success: true,
-    });
-});
-
-app.delete('/activity-log/last', (request, response) => {
-    pool.query("", [], (error, data) => {
-
-    });
+    await setActivityLogRow(lastRow.id, lastRow.content);
 
     response.json({
         success: true,
+        content: lastRow.content,
     });
 });
+
+app.delete('/activity-log/last', async (request, response) => {
+    const lastRow = await getLastActivityLogRow(request.user.id);
+
+    const updatedContent = lastRow.content.filter(item => item.title !== request.body.title);
+
+    await setActivityLogRow(lastRow.id, updatedContent);
+
+    response.json({
+        success: true,
+        content: updatedContent,
+    });
+});
+
+async function getLastActivityLogRow(userId) {
+    const [rows] = await promisePool.query("SELECT id, content FROM activity_log WHERE user_id = ? ORDER BY date DESC LIMIT 1", [userId]);
+    let result = rows[0];
+
+    if (!rows.length) {
+        const [sqlResult] = await promisePool.query("INSERT INTO activity_log(user_id, date, content) VALUES(?, ?, ?)", [userId, getCurrentDate(), '[]']);
+        console.log(sqlResult);
+        result = { id: sqlResult.insertId, content: [] };
+    }
+
+    return result;
+}
+
+async function setActivityLogRow(rowId, rowContent) {
+    await promisePool.query("UPDATE activity_log SET content = ? WHERE id = ?", [JSON.stringify(rowContent), rowId]);
+}
 
 function checkAuthenticated(request, response, next) {
     if (!request.isAuthenticated()) {
@@ -156,5 +181,9 @@ async function getUserById(userId) {
     }
     return rows[0];
 }
+
+const getCurrentDate = () => {
+    return moment().format('YYYY-MM-DD');
+};
 
 app.listen(3001);

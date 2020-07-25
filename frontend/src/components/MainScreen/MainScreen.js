@@ -13,11 +13,12 @@ import "~/components/dialog.scss";
 export default function MainScreen(props) {
     const { loadActivities, activities, activityLog, logout,
         saveActivities, editButtonPressed, isEditDialogShown,
-        dialogCancelButtonPressed, passwordChange } = props;
+        dialogCancelButtonPressed, passwordChange, loadLog } = props;
 
     useEffect(() => {
         loadActivities();
-    }, [loadActivities]);
+        loadLog();
+    }, [loadActivities, loadLog]);
 
     const [isMenuOpen, setMenuState] = useState(false);
     const [isPasswordChangeDialogOpen, setPasswordChangeDialogState] = useState(false);
@@ -115,6 +116,7 @@ MainScreen.propTypes = {
     isEditDialogShown: PropTypes.bool.isRequired,
 
     loadActivities: PropTypes.func.isRequired,
+    loadLog: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     saveActivities: PropTypes.func.isRequired,
     editButtonPressed: PropTypes.func.isRequired,

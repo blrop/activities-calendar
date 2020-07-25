@@ -12,32 +12,50 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.ACTIVITY_LOGGED:
+        case types.ACTIVITY_LOADED:
+            return update(state, {
+                log: {
+                    $set: action.payload.log,
+                }
+            });
+
+        case types.ACTIVITY_MODIFIED:
             return update(state, {
                 log: {
                     0: {
                         content: {
-                            $push: [{
-                                title: action.payload.title,
-                                colorId: action.payload.colorId,
-                            }]
+                            $set: action.payload.content
                         }
                     }
                 }
             });
 
-        case types.ACTIVITY_DROPPED:
-            return update(state, {
-                log: {
-                    0: {
-                        content: {
-                            $set: state.log[0].content.filter(item =>
-                                item.title !== action.payload.title
-                            )
-                        }
-                    }
-                }
-            });
+        // case types.ACTIVITY_LOGGED:
+        //     return update(state, {
+        //         log: {
+        //             0: {
+        //                 content: {
+        //                     $push: [{
+        //                         title: action.payload.title,
+        //                         colorId: action.payload.colorId,
+        //                     }]
+        //                 }
+        //             }
+        //         }
+        //     });
+        //
+        // case types.ACTIVITY_DROPPED:
+        //     return update(state, {
+        //         log: {
+        //             0: {
+        //                 content: {
+        //                     $set: state.log[0].content.filter(item =>
+        //                         item.title !== action.payload.title
+        //                     )
+        //                 }
+        //             }
+        //         }
+        //     });
 
         default:
             return state;

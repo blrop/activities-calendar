@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import classNames from 'classnames';
 
+import { formatDate } from "~/tools/tools";
 import './ActivityLog.scss';
 
 export default function ActivityLog(props) {
@@ -11,7 +12,7 @@ export default function ActivityLog(props) {
         <div className={classNames('activity-log-item', { 'activity-log-item--expanded': expanded })}
              key={index}
              onClick={toggleExpanded}>
-            <div className="activity-log-item__date">{item.date}:</div>
+            <div className="activity-log-item__date">{formatDate(item.date)}:</div>
             <div className="activity-log-item__details">
                 {expanded ? renderMarkersColumn(item.content) : renderMarkersRow(item.content)}
             </div>

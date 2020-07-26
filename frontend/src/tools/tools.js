@@ -1,10 +1,6 @@
 import moment from 'moment';
 import { useState } from "react";
 
-export const getCurrentDate = () => {
-    return moment().format('YYYY-MM-DD');
-};
-
 export const formatDate = (date) => {
     return moment(date).format('YYYY-MM-DD');
 };

@@ -1,14 +1,9 @@
 import update from 'immutability-helper';
 
 import { types } from '~/actions/activityLogActions';
-import { getCurrentDate } from "~/tools/tools";
 
 const initialState = {
-    log: [{ // todo: remove this initialization (along with the getCurrentDate func?)
-        date: getCurrentDate(),
-        content: [],
-        id: 0,
-    }],
+    log: [],
 };
 
 const reducer = (state = initialState, action) => {

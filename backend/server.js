@@ -120,7 +120,7 @@ app.get('/activity-log', checkAuthenticated, async (request, response) => {
 });
 
 app.post('/activity-log', checkAuthenticated, async (request, response) => {
-    const lastRow = await getLastActivityLogRow(request.user.id);
+    const lastRow = await getLastActivityLogRow(request.user.id, request.body.date);
 
     lastRow.content.push({
         title: request.body.title,
@@ -136,7 +136,7 @@ app.post('/activity-log', checkAuthenticated, async (request, response) => {
 });
 
 app.delete('/activity-log/last', checkAuthenticated, async (request, response) => {
-    const lastRow = await getLastActivityLogRow(request.user.id);
+    const lastRow = await getLastActivityLogRow(request.user.id, request.body.date);
 
     const updatedContent = lastRow.content.filter(item => item.title !== request.body.title);
 
@@ -148,13 +148,19 @@ app.delete('/activity-log/last', checkAuthenticated, async (request, response) =
     });
 });
 
-async function getLastActivityLogRow(userId) {
-    const [rows] = await promisePool.query("SELECT id, content FROM activity_log WHERE user_id = ? ORDER BY date DESC LIMIT 1", [userId]);
+async function getLastActivityLogRow(userId, date) {
+    const clientDate = getFormattedClientDate(date);
+
+    const [rows] = await promisePool.query(`
+        SELECT id, content 
+        FROM activity_log 
+        WHERE user_id = ? AND date = ? 
+        ORDER BY date DESC 
+        LIMIT 1`, [userId, clientDate]);
     let result = rows[0];
 
     if (!rows.length) {
-        const [sqlResult] = await promisePool.query("INSERT INTO activity_log(user_id, date, content) VALUES(?, ?, ?)", [userId, getCurrentDate(), '[]']);
-        console.log(sqlResult);
+        const [sqlResult] = await promisePool.query("INSERT INTO activity_log(user_id, date, content) VALUES(?, ?, '[]')", [userId, clientDate]);
         result = { id: sqlResult.insertId, content: [] };
     }
 
@@ -190,8 +196,21 @@ async function getUserById(userId) {
     return rows[0];
 }
 
-const getCurrentDate = () => {
-    return moment().format('YYYY-MM-DD');
+const getFormattedClientDate = (date) => {
+    const clientDate = moment(date);
+    const serverDate = moment();
+
+    const daysDiff = serverDate.startOf('day')
+        .diff(clientDate, 'days');
+
+    let dateToFormat;
+    if (daysDiff <= 1) {
+        dateToFormat = clientDate;
+    } else { // 'hack' attempt; using server date instead
+        dateToFormat = serverDate;
+    }
+
+    return dateToFormat.format('YYYY-MM-DD');
 };
 
 app.listen(3001);

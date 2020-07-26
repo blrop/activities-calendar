@@ -7,6 +7,7 @@ const initialState = {
     log: [{ // todo: remove this initialization (along with the getCurrentDate func?)
         date: getCurrentDate(),
         content: [],
+        id: 0,
     }],
 };
 

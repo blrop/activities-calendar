@@ -3,21 +3,25 @@ import PropTypes from "prop-types";
 import classNames from 'classnames';
 
 import { formatDate } from "~/tools/tools";
-import './ActivityLog.scss';
 
-export default function ActivityLog(props) {
+import './ActivityLogItem.scss';
+
+export default function ActivityLogItem (props) {
     const [expanded, setExpanded] = useState(false);
 
-    return props.activityLog.map((item, index) => (
+    return (
         <div className={classNames('activity-log-item', { 'activity-log-item--expanded': expanded })}
-             key={index}
              onClick={toggleExpanded}>
-            <div className="activity-log-item__date">{formatDate(item.date)}:</div>
+            <div className="activity-log-item__date">{formatDate(props.item.date)}:</div>
             <div className="activity-log-item__details">
-                {expanded ? renderMarkersColumn(item.content) : renderMarkersRow(item.content)}
+                {expanded ? renderMarkersColumn(props.item.content) : renderMarkersRow(props.item.content)}
             </div>
         </div>
-    ));
+    );
+
+    function toggleExpanded() {
+        setExpanded(!expanded);
+    }
 
     function renderMarkersColumn(activityContent) {
         return activityContent.map((marker, index) => (
@@ -43,12 +47,8 @@ export default function ActivityLog(props) {
             );
         });
     }
+};
 
-    function toggleExpanded() {
-        setExpanded(!expanded);
-    }
-}
-
-ActivityLog.propTypes = {
-    activityLog: PropTypes.array.isRequired,
+ActivityLogItem.propTypes = {
+    item: PropTypes.object.isRequired,
 };

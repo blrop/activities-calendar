@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from 'classnames';
 
 import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
-import ActivityLog from "~/components/MainScreen/ActivityLog/ActivityLog";
+import ActivityLogItem from "~/components/MainScreen/ActivityLog/ActivityLogItem";
 import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
 import PasswordChangeForm from "./PasswordChangeForm";
 
@@ -58,7 +58,9 @@ export default function MainScreen(props) {
                 </div>
                 <div className="screen-body__block">
                     <div className="screen-body__title">Recently</div>
-                    <ActivityLog activityLog={activityLog} activities={activities} />
+                    {activityLog.map((item) => (
+                        <ActivityLogItem item={item} key={item.id} />
+                    ))}
                 </div>
             </div>
 

@@ -11,7 +11,7 @@ export default function ActivityLogItem (props) {
 
     return (
         <div className={classNames('activity-log-item', { 'activity-log-item--expanded': expanded })}
-             onClick={toggleExpanded}>
+             onClick={onItemClick}>
             <div className="activity-log-item__date">{formatDate(props.item.date)}:</div>
             <div className="activity-log-item__details">
                 {expanded ? renderMarkersColumn(props.item.content) : renderMarkersRow(props.item.content)}
@@ -19,8 +19,10 @@ export default function ActivityLogItem (props) {
         </div>
     );
 
-    function toggleExpanded() {
-        setExpanded(!expanded);
+    function onItemClick() {
+        if (props.item.content.length) {
+            setExpanded(!expanded);
+        }
     }
 
     function renderMarkersColumn(activityContent) {

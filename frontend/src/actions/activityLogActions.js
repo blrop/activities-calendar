@@ -1,4 +1,5 @@
 import { formatDate } from "~/tools/tools";
+import moment from 'moment';
 
 export const types = {
     ACTIVITY_LOADED: 'ACTIVITY_LOADED',
@@ -21,11 +22,31 @@ export const loadLog = () => (dispatch) => {
     })
         .then(response => response.json())
         .then(({ log }) => {
-            dispatch(activityLoaded(log));
+            dispatch(activityLoaded(fillLogWithEmptyDates(log)));
         })
         .catch(error => {
             console.log(error);
         });
+};
+
+const fillLogWithEmptyDates = (log) => {
+    let result = [];
+    let nextDate = moment().startOf('day');
+
+    for (let i = 0; i < log.length; i++) {
+        const itemDate = moment(log[i].date).startOf('day');
+        while (nextDate.diff(itemDate, 'days') >= 1) {
+            result.push({
+                content: [],
+                date: formatDate(nextDate),
+            });
+            nextDate = nextDate.subtract(1, 'days');
+        }
+        result.push(log[i]);
+        nextDate = moment(log[i].date).subtract(1, 'days').startOf('day');
+    }
+
+    return result;
 };
 
 export const logActivity = (title, colorId) => (dispatch) => {

@@ -58,8 +58,8 @@ export default function MainScreen(props) {
                 </div>
                 <div className="screen-body__block">
                     <div className="screen-body__title">Recently</div>
-                    {activityLog.map((item) => (
-                        <ActivityLogItem item={item} key={item.id} />
+                    {activityLog.map((item, index) => (
+                        <ActivityLogItem item={item} key={index} />
                     ))}
                 </div>
             </div>

@@ -109,7 +109,7 @@ app.post('/activities', checkAuthenticated, async (request, response) => {
 
 app.get('/activity-log', checkAuthenticated, async (request, response) => {
     const [rows] = await promisePool.query(`
-        SELECT id, date, content 
+        SELECT id, DATE_FORMAT(date, '%Y-%m-%d') AS date, content 
         FROM activity_log 
         WHERE user_id = ? AND date > DATE_ADD(NOW(), INTERVAL -? DAY) 
         ORDER BY date DESC`, [request.user.id, LOG_DATE_DEPTH_DAYS]);
@@ -204,7 +204,7 @@ const getFormattedClientDate = (date) => {
         .diff(clientDate, 'days');
 
     let dateToFormat;
-    if (daysDiff <= 1) {
+    if (Math.abs(daysDiff) <= 1) {
         dateToFormat = clientDate;
     } else { // 'hack' attempt; using server date instead
         dateToFormat = serverDate;

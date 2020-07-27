@@ -1,6 +1,21 @@
 export const types = {
     AUTH_STATE_WAS_CHANGED: 'AUTH_STATE_WAS_CHANGED',
+    PASSWORD_CHANGE_BUTTON_PRESSED: 'PASSWORD_CHANGE_BUTTON_PRESSED',
+    PASSWORD_DIALOG_CANCEL_BUTTON_PRESSED: 'PASSWORD_DIALOG_CANCEL_BUTTON_PRESSED',
+    PASSWORD_WAS_CHANGED: 'PASSWORD_WAS_CHANGED',
 };
+
+export const passwordChangeButtonPressed = () => ({
+    type: types.PASSWORD_CHANGE_BUTTON_PRESSED
+});
+
+export const passwordDialogCancelButtonPressed = () => ({
+    type: types.PASSWORD_DIALOG_CANCEL_BUTTON_PRESSED
+});
+
+const passwordWasChanged = () => ({
+    type: types.PASSWORD_WAS_CHANGED
+});
 
 const authStateWasChanged = (isLoggedIn, user = null) => ({
     type: types.AUTH_STATE_WAS_CHANGED,
@@ -76,8 +91,12 @@ export const passwordChange = ({ password, newPassword }) => (dispatch) => {
         body: JSON.stringify({ password, newPassword })
     })
         .then(response => response.json())
-        .then(() => {
-            
+        .then((data) => {
+            if (data.success) {
+                dispatch(passwordWasChanged());
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             console.log(error);

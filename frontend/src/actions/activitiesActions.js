@@ -1,8 +1,8 @@
 export const types = {
     ACTIVITIES_LOADED: 'ACTIVITIES_LOADED',
     ACTIVITIES_SAVED: 'ACTIVITIES_SAVED',
-    EDIT_BUTTON_PRESSED: 'EDIT_BUTTON_PRESSED',
-    DIALOG_CANCEL_BUTTON_PRESSED: 'DIALOG_CANCEL_BUTTON_PRESSED',
+    EDIT_ACTIVITIES_BUTTON_PRESSED: 'EDIT_ACTIVITIES_BUTTON_PRESSED',
+    ACTIVITIES_DIALOG_CANCEL_BUTTON_PRESSED: 'ACTIVITIES_DIALOG_CANCEL_BUTTON_PRESSED',
 };
 
 const activitiesLoaded = (items) => ({
@@ -15,12 +15,12 @@ const activitiesSaved = (items) => ({
     payload: { items },
 });
 
-export const editButtonPressed = () => ({
-    type: types.EDIT_BUTTON_PRESSED,
+export const editActivitiesButtonPressed = () => ({
+    type: types.EDIT_ACTIVITIES_BUTTON_PRESSED,
 });
 
-export const dialogCancelButtonPressed = () => ({
-    type: types.DIALOG_CANCEL_BUTTON_PRESSED,
+export const activitiesDialogCancelButtonPressed = () => ({
+    type: types.ACTIVITIES_DIALOG_CANCEL_BUTTON_PRESSED,
 });
 
 export const loadActivities = () => (dispatch) => {

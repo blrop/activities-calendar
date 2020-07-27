@@ -80,7 +80,9 @@ app.post('/user/logout', (request, response) => {
 app.post('/user/password-change', checkAuthenticated, async (request, response) => {
     const isOldPasswordCorrect = await bcrypt.compare(request.body.password, request.user.password);
     if (!isOldPasswordCorrect) {
-        response.json({ success: false, message: 'Old password is incorrect' });
+        response
+            .status(400)
+            .json({ success: false, message: 'Old password is incorrect' });
         return;
     }
 

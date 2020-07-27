@@ -17,7 +17,7 @@ export default function App(props) {
     }
 
     if (props.isLoggedIn) {
-        return <MainScreen user={props.user}/>;
+        return <MainScreen/>;
     } else {
         return <UnauthorizedScreen loginAction={props.login} registerAction={props.register}/>
     }
@@ -29,10 +29,8 @@ App.propTypes = {
     register: PropTypes.func.isRequired,
 
     isLoggedIn: PropTypes.bool,
-    user: PropTypes.object,
 };
 
 App.defaultProps = {
     isLoggedIn: null,
-    user: null,
 };

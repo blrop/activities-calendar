@@ -11,9 +11,26 @@ import './MainScreen.scss';
 import "~/components/dialog.scss";
 
 export default function MainScreen(props) {
-    const { loadActivities, activities, activityLog, logout,
-        saveActivities, editButtonPressed, isEditDialogShown,
-        dialogCancelButtonPressed, passwordChange, loadLog } = props;
+    const {
+        loadActivities,
+        loadLog,
+
+        user,
+        logout,
+
+        activities,
+        activityLog,
+
+        isActivitiesDialogShown,
+        editActivitiesButtonPressed,
+        activitiesDialogCancelButtonPressed,
+        saveActivities,
+
+        isPasswordDialogShown,
+        passwordChangeButtonPressed,
+        passwordDialogCancelButtonPressed,
+        passwordChange,
+    } = props;
 
     useEffect(() => {
         loadActivities();
@@ -21,7 +38,6 @@ export default function MainScreen(props) {
     }, [loadActivities, loadLog]);
 
     const [isMenuOpen, setMenuState] = useState(false);
-    const [isPasswordChangeDialogOpen, setPasswordChangeDialogState] = useState(false);
 
     return (
         <div className="screen-wrapper">
@@ -39,14 +55,14 @@ export default function MainScreen(props) {
                     />
                 </div>
                 <div className="screen-header__item">
-                    {props.user.name}
+                    {user.name}
                 </div>
             </div>
 
             {isMenuOpen &&
                 <div className="screen-menu">
-                    <button className="screen-menu__item" onClick={editButtonPressed}>Edit Activities</button>
-                    <button className="screen-menu__item" onClick={showPasswordChangeDialog}>Change Password</button>
+                    <button className="screen-menu__item" onClick={editActivitiesButtonPressed}>Edit Activities</button>
+                    <button className="screen-menu__item" onClick={passwordChangeButtonPressed}>Change Password</button>
                     <button className="screen-menu__item" onClick={logout}>Log out</button>
                 </div>
             }
@@ -75,15 +91,15 @@ export default function MainScreen(props) {
                 </div>
             </div>
 
-            {isEditDialogShown && <ActivitiesEditor
+            {isActivitiesDialogShown && <ActivitiesEditor
                 activities={activities}
-                onSubmit={onEditDialogSubmit}
-                onClose={dialogCancelButtonPressed}
+                onSubmit={onEditActivitiesDialogSubmit}
+                onClose={activitiesDialogCancelButtonPressed}
             />}
 
-            {isPasswordChangeDialogOpen && <PasswordChangeForm
+            {isPasswordDialogShown && <PasswordChangeForm
                 onSubmit={onPasswordChangeDialogSubmit}
-                onClose={hidePasswordChangeDialog}
+                onClose={passwordDialogCancelButtonPressed}
             />}
         </div>
     );
@@ -92,16 +108,8 @@ export default function MainScreen(props) {
         setMenuState(!isMenuOpen);
     }
 
-    function onEditDialogSubmit(data) {
+    function onEditActivitiesDialogSubmit(data) {
         saveActivities(data);
-    }
-
-    function showPasswordChangeDialog() {
-        setPasswordChangeDialogState(true);
-    }
-
-    function hidePasswordChangeDialog() {
-        setPasswordChangeDialogState(false);
     }
 
     function onPasswordChangeDialogSubmit({ password, newPassword }) {
@@ -110,16 +118,23 @@ export default function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-    activityLog: PropTypes.array.isRequired,
-    activities: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired,
-    isEditDialogShown: PropTypes.bool.isRequired,
-
     loadActivities: PropTypes.func.isRequired,
     loadLog: PropTypes.func.isRequired,
+
+    user: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired,
+
+    activities: PropTypes.array.isRequired,
+    activityLog: PropTypes.array.isRequired,
+
+    isActivitiesDialogShown: PropTypes.bool.isRequired,
+    editActivitiesButtonPressed: PropTypes.func.isRequired,
+    activitiesDialogCancelButtonPressed: PropTypes.func.isRequired,
     saveActivities: PropTypes.func.isRequired,
-    editButtonPressed: PropTypes.func.isRequired,
+
+    isPasswordDialogShown: PropTypes.bool.isRequired,
+    passwordChangeButtonPressed: PropTypes.func.isRequired,
+    passwordDialogCancelButtonPressed: PropTypes.func.isRequired,
     passwordChange: PropTypes.func.isRequired,
 };
 

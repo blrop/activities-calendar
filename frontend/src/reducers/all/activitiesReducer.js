@@ -2,7 +2,7 @@ import { types } from '~/actions/activitiesActions';
 
 const initialState = {
     items: [],
-    isEditDialogShown: false,
+    isActivitiesDialogShown: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -17,19 +17,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: action.payload.items,
-                isEditDialogShown: false,
+                isActivitiesDialogShown: false,
             };
 
-        case types.EDIT_BUTTON_PRESSED:
+        case types.EDIT_ACTIVITIES_BUTTON_PRESSED:
             return {
                 ...state,
-                isEditDialogShown: true,
+                isActivitiesDialogShown: true,
             };
 
-        case types.DIALOG_CANCEL_BUTTON_PRESSED:
+        case types.ACTIVITIES_DIALOG_CANCEL_BUTTON_PRESSED:
             return {
                 ...state,
-                isEditDialogShown: false,
+                isActivitiesDialogShown: false,
             };
 
         default:

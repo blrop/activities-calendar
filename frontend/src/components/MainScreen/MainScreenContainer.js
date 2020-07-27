@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 
 import MainScreen from './MainScreen';
-import { loadActivities, saveActivities, editButtonPressed, dialogCancelButtonPressed } from "~/actions/activitiesActions";
-import { logout, passwordChange } from "~/actions/appActions";
+import { loadActivities, saveActivities, editActivitiesButtonPressed, activitiesDialogCancelButtonPressed } from "~/actions/activitiesActions";
+import { logout, passwordChange, passwordChangeButtonPressed, passwordDialogCancelButtonPressed } from "~/actions/appActions";
 import { loadLog } from "~/actions/activityLogActions";
 
 const mapStateToProps = ({
@@ -11,22 +11,35 @@ const mapStateToProps = ({
     },
     activitiesReducer: {
         items: activities,
-        isEditDialogShown,
+        isActivitiesDialogShown,
     },
+    appReducer: {
+        isPasswordDialogShown,
+        user,
+    }
 }) => ({
-    activityLog,
+    user,
+
     activities,
-    isEditDialogShown,
+    activityLog,
+
+    isActivitiesDialogShown,
+    isPasswordDialogShown,
 });
 
 const mapDispatchToProps = {
     loadActivities,
-    logout,
-    saveActivities,
-    editButtonPressed,
-    dialogCancelButtonPressed,
-    passwordChange,
     loadLog,
+
+    logout,
+
+    editActivitiesButtonPressed,
+    activitiesDialogCancelButtonPressed,
+    saveActivities,
+
+    passwordChangeButtonPressed,
+    passwordDialogCancelButtonPressed,
+    passwordChange,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -3,6 +3,15 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const LOG_DATE_DEPTH_DAYS = 180;
+const SAMPLE_ACTIVITIES_FOR_NEW_USERS = [
+    {
+        "title": "Sample activity 1",
+        "colorId": "13"
+    }, {
+        "title": "Sample activity 2",
+        "colorId": "10"
+    }
+];
 
 const express = require('express');
 const app = express();
@@ -68,7 +77,7 @@ app.post('/user/register', async (request, response) => {
         return;
     }
 
-    await promisePool.query("INSERT INTO users(name, password, registered_on, last_login_on) VALUES(?, ?, NOW(), NOW())", [request.body.name, hashedPassword]);
+    await promisePool.query("INSERT INTO users(name, password, registered_on, last_login_on, activities) VALUES(?, ?, NOW(), NOW(), ?)", [request.body.name, hashedPassword, JSON.stringify(SAMPLE_ACTIVITIES_FOR_NEW_USERS)]);
     response.json({ success: true });
 });
 
@@ -111,7 +120,7 @@ app.post('/activities', checkAuthenticated, async (request, response) => {
 
 app.get('/activity-log', checkAuthenticated, async (request, response) => {
     const [rows] = await promisePool.query(`
-        SELECT id, DATE_FORMAT(date, '%Y-%m-%d') AS date, content 
+        SELECT DATE_FORMAT(date, '%Y-%m-%d') AS date, content 
         FROM activity_log 
         WHERE user_id = ? AND date > DATE_ADD(NOW(), INTERVAL -? DAY) 
         ORDER BY date DESC`, [request.user.id, LOG_DATE_DEPTH_DAYS]);

@@ -16,6 +16,13 @@ export const useFormInput = (initialValue) => {
 }
 
 export const fillLogWithEmptyDates = (log) => {
+    if (log.length === 0) {
+        return [{
+            content: [],
+            date: formatDate(moment()),
+        }];
+    }
+
     let result = [];
     let nextDate = moment().startOf('day');
 

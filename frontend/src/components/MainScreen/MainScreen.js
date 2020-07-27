@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classNames from 'classnames';
 
 import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
-import ActivityLogItem from "~/components/MainScreen/ActivityLog/ActivityLogItem";
+import ActivityLogItem from "~/components/MainScreen/ActivityLogItem/ActivityLogItem";
 import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
 import PasswordChangeForm from "./PasswordChangeForm";
 

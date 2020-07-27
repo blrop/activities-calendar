@@ -1,3 +1,5 @@
+import { errorMiddleware, onError } from "~/tools/tools";
+
 export const types = {
     ACTIVITIES_LOADED: 'ACTIVITIES_LOADED',
     ACTIVITIES_SAVED: 'ACTIVITIES_SAVED',
@@ -26,16 +28,11 @@ export const activitiesDialogCancelButtonPressed = () => ({
 export const loadActivities = () => (dispatch) => {
     fetch('/activities', { method: 'GET' })
         .then(response => response.json())
+        .then(errorMiddleware)
         .then((data) => {
-            if (data.success) {
-                dispatch(activitiesLoaded(data.activities));
-            } else {
-                console.log(data.message);
-            }
+            dispatch(activitiesLoaded(data.activities));
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 };
 
 export const saveActivities = (activities)  => (dispatch) => {
@@ -45,14 +42,9 @@ export const saveActivities = (activities)  => (dispatch) => {
         body: JSON.stringify(activities),
     })
         .then(response => response.json())
-        .then((data) => {
-            if (data.success) {
-                dispatch(activitiesSaved(activities));
-            } else {
-                console.log(data.message);
-            }
+        .then(errorMiddleware)
+        .then(() => {
+            dispatch(activitiesSaved(activities));
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 }

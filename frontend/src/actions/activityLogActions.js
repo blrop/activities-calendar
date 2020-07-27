@@ -1,4 +1,4 @@
-import { formatDate, fillLogWithEmptyDates } from "~/tools/tools";
+import { formatDate, fillLogWithEmptyDates, errorMiddleware, onError } from "~/tools/tools";
 
 export const types = {
     ACTIVITY_LOADED: 'ACTIVITY_LOADED',
@@ -20,16 +20,11 @@ export const loadLog = () => (dispatch) => {
         method: 'GET',
     })
         .then(response => response.json())
+        .then(errorMiddleware)
         .then((data) => {
-            if (data.success) {
-                dispatch(activityLoaded(fillLogWithEmptyDates(data.log)));
-            } else {
-                console.log(data.message);
-            }
+            dispatch(activityLoaded(fillLogWithEmptyDates(data.log)));
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 };
 
 export const logActivity = (title, colorId) => (dispatch) => {
@@ -43,16 +38,11 @@ export const logActivity = (title, colorId) => (dispatch) => {
         })
     })
         .then(response => response.json())
+        .then(errorMiddleware)
         .then((data) => {
-            if (data.success) {
-                dispatch(activityModified(data.content));
-            } else {
-                console.log(data.message);
-            }
+            dispatch(activityModified(data.content));
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 };
 
 export const dropActivity = (title) => (dispatch) => {
@@ -65,14 +55,9 @@ export const dropActivity = (title) => (dispatch) => {
         })
     })
         .then(response => response.json())
+        .then(errorMiddleware)
         .then((data) => {
-            if (data.success) {
-                dispatch(activityModified(data.content));
-            } else {
-                console.log(data.message);
-            }
+            dispatch(activityModified(data.content));
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 };

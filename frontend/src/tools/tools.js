@@ -41,3 +41,15 @@ export const fillLogWithEmptyDates = (log) => {
 
     return result;
 };
+
+export const errorMiddleware = (data) => {
+    if (data.success) {
+        return data;
+    } else {
+        throw new Error(data.message);
+    }
+};
+
+export const onError = (error) => {
+    console.log(error.message);
+};

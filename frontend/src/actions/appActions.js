@@ -1,3 +1,5 @@
+import { errorMiddleware, onError } from "~/tools/tools";
+
 export const types = {
     AUTH_STATE_WAS_CHANGED: 'AUTH_STATE_WAS_CHANGED',
     PASSWORD_CHANGE_BUTTON_PRESSED: 'PASSWORD_CHANGE_BUTTON_PRESSED',
@@ -97,14 +99,9 @@ export const passwordChange = ({ password, newPassword }) => (dispatch) => {
         body: JSON.stringify({ password, newPassword })
     })
         .then(response => response.json())
-        .then((data) => {
-            if (data.success) {
-                dispatch(passwordWasChanged());
-            } else {
-                console.log(data.message);
-            }
+        .then(errorMiddleware)
+        .then(() => {
+            dispatch(passwordWasChanged());
         })
-        .catch(error => {
-            console.log(error);
-        });
+        .catch(onError);
 };

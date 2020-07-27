@@ -95,11 +95,11 @@ app.post('/user/password-change', checkAuthenticated, async (request, response) 
 
 app.get('/activities', checkAuthenticated, async (request, response) => {
     const [rows] = await promisePool.query("SELECT activities FROM users WHERE id = ?", [request.user.id]);
-    if (!rows.length) {
-        response.json({ success: false, message: `No users with id=${request.user.id}` });
-        return;
-    }
-    response.json({ success: true, activities: rows[0].activities });
+
+    response.json({ 
+        success: true,
+        activities: rows[0].activities || [],
+    });
 });
 
 app.post('/activities', checkAuthenticated, async (request, response) => {

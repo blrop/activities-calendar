@@ -93,12 +93,12 @@ export default function MainScreen(props) {
 
             {isActivitiesDialogShown && <ActivitiesEditor
                 activities={activities}
-                onSubmit={onEditActivitiesDialogSubmit}
+                onSubmit={saveActivities}
                 onClose={activitiesDialogCancelButtonPressed}
             />}
 
             {isPasswordDialogShown && <PasswordChangeForm
-                onSubmit={onPasswordChangeDialogSubmit}
+                onSubmit={passwordChange}
                 onClose={passwordDialogCancelButtonPressed}
             />}
         </div>
@@ -106,14 +106,6 @@ export default function MainScreen(props) {
 
     function toggleMenuState() {
         setMenuState(!isMenuOpen);
-    }
-
-    function onEditActivitiesDialogSubmit(data) {
-        saveActivities(data);
-    }
-
-    function onPasswordChangeDialogSubmit({ password, newPassword }) {
-        passwordChange({ password, newPassword });
     }
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormInput } from "~/tools/tools";
 import PropTypes from 'prop-types';
 
@@ -6,6 +6,8 @@ export default function PasswordChangeForm(props) {
     const password = useFormInput('');
     const newPassword = useFormInput('');
     const newPassword2 = useFormInput('');
+
+    const [passwordError, setPasswordError] = useState(null);
 
     return (
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
@@ -31,6 +33,7 @@ export default function PasswordChangeForm(props) {
                     <div className="form-group">
                         <label htmlFor="new-password2">Repeat New Password:</label>
                         <input type="password" id="new-password2" required {...newPassword2}/>
+                        {passwordError ? <div className="form-group__error">{passwordError}</div> : null}
                     </div>
                 </div>
                 <div className="modal-dialog__buttons">
@@ -50,10 +53,16 @@ export default function PasswordChangeForm(props) {
     function onSubmit(e) {
         e.preventDefault();
 
-        props.onSubmit({
-            password: password.value,
-            newPassword: newPassword.value,
-        });
+        if (newPassword.value === newPassword2.value) {
+            setPasswordError(null);
+
+            props.onSubmit({
+                password: password.value,
+                newPassword: newPassword.value,
+            });
+        } else {
+            setPasswordError('Password doesn\'t match');
+        }
     }
 };
 

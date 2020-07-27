@@ -1,5 +1,4 @@
-import { formatDate } from "~/tools/tools";
-import moment from 'moment';
+import { formatDate, fillLogWithEmptyDates } from "~/tools/tools";
 
 export const types = {
     ACTIVITY_LOADED: 'ACTIVITY_LOADED',
@@ -21,32 +20,16 @@ export const loadLog = () => (dispatch) => {
         method: 'GET',
     })
         .then(response => response.json())
-        .then(({ log }) => {
-            dispatch(activityLoaded(fillLogWithEmptyDates(log)));
+        .then((data) => {
+            if (data.success) {
+                dispatch(activityLoaded(fillLogWithEmptyDates(data.log)));
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             console.log(error);
         });
-};
-
-const fillLogWithEmptyDates = (log) => {
-    let result = [];
-    let nextDate = moment().startOf('day');
-
-    for (let i = 0; i < log.length; i++) {
-        const itemDate = moment(log[i].date).startOf('day');
-        while (nextDate.diff(itemDate, 'days') >= 1) {
-            result.push({
-                content: [],
-                date: formatDate(nextDate),
-            });
-            nextDate = nextDate.subtract(1, 'days');
-        }
-        result.push(log[i]);
-        nextDate = moment(log[i].date).subtract(1, 'days').startOf('day');
-    }
-
-    return result;
 };
 
 export const logActivity = (title, colorId) => (dispatch) => {
@@ -60,8 +43,12 @@ export const logActivity = (title, colorId) => (dispatch) => {
         })
     })
         .then(response => response.json())
-        .then(({ content }) => {
-            dispatch(activityModified(content));
+        .then((data) => {
+            if (data.success) {
+                dispatch(activityModified(data.content));
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             console.log(error);
@@ -78,8 +65,12 @@ export const dropActivity = (title) => (dispatch) => {
         })
     })
         .then(response => response.json())
-        .then(({ content }) => {
-            dispatch(activityModified(content));
+        .then((data) => {
+            if (data.success) {
+                dispatch(activityModified(data.content));
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             console.log(error);

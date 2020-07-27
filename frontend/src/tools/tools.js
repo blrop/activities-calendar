@@ -14,3 +14,23 @@ export const useFormInput = (initialValue) => {
 
     return { value, onChange: handleChange };
 }
+
+export const fillLogWithEmptyDates = (log) => {
+    let result = [];
+    let nextDate = moment().startOf('day');
+
+    for (let i = 0; i < log.length; i++) {
+        const itemDate = moment(log[i].date).startOf('day');
+        while (nextDate.diff(itemDate, 'days') >= 1) {
+            result.push({
+                content: [],
+                date: formatDate(nextDate),
+            });
+            nextDate = nextDate.subtract(1, 'days');
+        }
+        result.push(log[i]);
+        nextDate = moment(log[i].date).subtract(1, 'days').startOf('day');
+    }
+
+    return result;
+};

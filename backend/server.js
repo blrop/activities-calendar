@@ -45,9 +45,9 @@ app.get('/user', async (request, response) => {
         if (!rows.length) {
             response.json({ success: false, message: `No user with id=${userId}` });
         }
-        response.json(rows[0]);
+        response.json({ success: true, user: rows[0] });
     } else {
-        response.json(null);
+        response.json({ success: true, user: null });
     }
 });
 
@@ -99,7 +99,7 @@ app.get('/activities', checkAuthenticated, async (request, response) => {
         response.json({ success: false, message: `No users with id=${request.user.id}` });
         return;
     }
-    response.json(rows[0]);
+    response.json({ success: true, activities: rows[0].activities });
 });
 
 app.post('/activities', checkAuthenticated, async (request, response) => {
@@ -117,6 +117,7 @@ app.get('/activity-log', checkAuthenticated, async (request, response) => {
         ORDER BY date DESC`, [request.user.id, LOG_DATE_DEPTH_DAYS]);
 
     response.json({
+        success: true,
         log: rows,
     });
 });
@@ -176,7 +177,7 @@ async function setActivityLogRow(rowId, rowContent) {
 
 function checkAuthenticated(request, response, next) {
     if (!request.isAuthenticated()) {
-        response.status(403).send({ error: 'Authentication required' });
+        response.status(403).send({ success: false, message: 'Authentication required' });
     } else {
         next();
     }

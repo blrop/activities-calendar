@@ -25,8 +25,12 @@ const authStateWasChanged = (isLoggedIn, user = null) => ({
 export const checkIsLoggedIn = () => (dispatch) => {
     fetch('/user', { method: 'GET' })
         .then(response => response.json())
-        .then(user => {
-            dispatch(authStateWasChanged(!!user, user));
+        .then(data => {
+            if (data.success) {
+                dispatch(authStateWasChanged(!!data.user, data.user));
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             dispatch(authStateWasChanged(false));
@@ -77,6 +81,8 @@ export const register = (name, password) => () => {
         .then((data) => {
             if (data.success) {
 
+            } else {
+                console.log(data.message);
             }
         })
         .catch(error => {

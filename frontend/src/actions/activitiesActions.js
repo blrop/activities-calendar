@@ -26,8 +26,15 @@ export const activitiesDialogCancelButtonPressed = () => ({
 export const loadActivities = () => (dispatch) => {
     fetch('/activities', { method: 'GET' })
         .then(response => response.json())
-        .then(({ activities }) => {
-            dispatch(activitiesLoaded(activities));
+        .then((data) => {
+            if (data.success) {
+                dispatch(activitiesLoaded(data.activities));
+            } else {
+                console.log(data.message);
+            }
+        })
+        .catch(error => {
+            console.log(error);
         });
 };
 
@@ -38,8 +45,12 @@ export const saveActivities = (activities)  => (dispatch) => {
         body: JSON.stringify(activities),
     })
         .then(response => response.json())
-        .then(() => {
-            dispatch(activitiesSaved(activities));
+        .then((data) => {
+            if (data.success) {
+                dispatch(activitiesSaved(activities));
+            } else {
+                console.log(data.message);
+            }
         })
         .catch(error => {
             console.log(error);

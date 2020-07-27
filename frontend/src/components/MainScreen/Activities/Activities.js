@@ -11,7 +11,9 @@ export default function Activities(props) {
 
     return (
         <div className="activity-list">
-            {props.activities.map((item, index) => (
+            {props.activities
+                .sort((a, b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1 : -1)
+                .map((item, index) => (
                 <Activity
                     title={item.title}
                     colorId={item.colorId}

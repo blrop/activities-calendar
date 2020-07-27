@@ -11,6 +11,17 @@ export default function UnauthorizedScreen(props) {
 
     const [formToShow, setFormToShow] = useState(LOGIN);
 
+    switch (formToShow) {
+        case LOGIN:
+            return <LoginForm switchCallback={showRegisterForm} loginAction={props.loginAction}/>;
+
+        case REGISTER:
+            return <RegisterForm switchCallback={showLoginForm} registerAction={onRegisterFormSubmit}/>;
+
+        default:
+            return null;
+    }
+
     function showLoginForm() {
         setFormToShow(LOGIN);
     }
@@ -19,15 +30,13 @@ export default function UnauthorizedScreen(props) {
         setFormToShow(REGISTER);
     }
 
-    switch (formToShow) {
-        case LOGIN:
-            return <LoginForm switchCallback={showRegisterForm} loginAction={props.loginAction}/>;
-
-        case REGISTER:
-            return <RegisterForm switchCallback={showLoginForm} registerAction={props.registerAction}/>;
-
-        default:
-            return null;
+    function onRegisterFormSubmit(name, password) {
+        props.registerAction(name, password)
+            .then((success) => {
+                if (success) {
+                    props.loginAction(name, password);
+                }
+            });
     }
 }
 

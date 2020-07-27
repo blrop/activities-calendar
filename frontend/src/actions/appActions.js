@@ -72,21 +72,21 @@ export const logout = () => (dispatch) => {
 };
 
 export const register = (name, password) => () => {
-    fetch('/user/register', {
+    return fetch('/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, password })
     })
         .then(response => response.json())
         .then((data) => {
-            if (data.success) {
-
-            } else {
-                console.log(data.message);
+            if (!data.success) {
+                throw new Error(data.message);
             }
+            return true;
         })
         .catch(error => {
             console.log(error);
+            return false;
         });
 };
 

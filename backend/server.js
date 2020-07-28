@@ -20,6 +20,8 @@ const passport = require('passport');
 const session = require('express-session');
 const moment = require('moment');
 
+app.use(express.static('build'));
+
 const initializePassport = require('./passport-config');
 initializePassport(passport, getUserByName, getUserById);
 

@@ -109,7 +109,7 @@ app.get('/activities', checkAuthenticated, async (request, response) => {
 
     response.json({ 
         success: true,
-        activities: rows[0].activities || [],
+        activities: JSON.parse(rows[0].activities) || [],
     });
 });
 
@@ -127,9 +127,13 @@ app.get('/activity-log', checkAuthenticated, async (request, response) => {
         WHERE user_id = ? AND date > DATE_ADD(NOW(), INTERVAL -? DAY) 
         ORDER BY date DESC`, [request.user.id, LOG_DATE_DEPTH_DAYS]);
 
+    const log = rows.map(item => ({
+        date: item.date,
+        content: JSON.parse(item.content),
+    }));
     response.json({
         success: true,
-        log: rows,
+        log: log,
     });
 });
 
@@ -171,9 +175,14 @@ async function getLastActivityLogRow(userId, date) {
         WHERE user_id = ? AND date = ? 
         ORDER BY date DESC 
         LIMIT 1`, [userId, clientDate]);
-    let result = rows[0];
 
-    if (!rows.length) {
+    let result;
+    if (rows.length) {
+        result = {
+            id: rows[0].id,
+            content: JSON.parse(rows[0].content),
+        };
+    } else {
         const [sqlResult] = await promisePool.query("INSERT INTO activity_log(user_id, date, content) VALUES(?, ?, '[]')", [userId, clientDate]);
         result = { id: sqlResult.insertId, content: [] };
     }

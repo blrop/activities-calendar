@@ -14,6 +14,9 @@ CREATE TABLE `activity_log` (
   CONSTRAINT `activity_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `users` (`id`, `name`, `password`, `registered_on`, `last_login_on`, `activities`) VALUES
+(1,	'example',	'$2b$10$WYYV6w2stQME0JP2k.ww1.pYSsaUr/7hQqijPOGOZjdn2z7uH7AkO',	'2020-07-01 00:00:00',	'2020-07-01 00:00:00',	'[{\"title\": \"Listen to podcasts\", \"colorId\": \"10\"}, {\"title\": \"Perform some physical activity\", \"colorId\": \"13\"}, {\"title\": \"Read a book\", \"colorId\": \"9\"}]');
+
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (

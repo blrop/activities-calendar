@@ -236,4 +236,4 @@ const getFormattedClientDate = (date) => {
     return dateToFormat.format('YYYY-MM-DD');
 };
 
-app.listen(3001);
+app.listen(process.env.PORT);

@@ -6,7 +6,8 @@
   "scripts": {
     "dev-start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-ui": "rm -rf build && cd ./frontend && npm run build --prod && cp -r build ../"
+    "build-ui": "rm -rf build && cd ./frontend && npm run build --prod && cp -r build ../",
+    "heroku-postbuild": "rm -rf build && cd ./frontend && npm install && npm install --only=dev --no-shrinkwrap && npm run build --prod && cp -r build ../"
   },
   "keywords": [],
   "author": "",

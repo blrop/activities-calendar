@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from "prop-types";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import LangSelector from "~/components/LangSelector/LangSelector";
 import ToolDialog from "~/components/ToolDialog/ToolDialog";
+import { LanguageContext } from "~/components/App";
+import { l10n } from "~/l10n";
 
 import './UnauthorizedScreen.scss';
 
 export default function UnauthorizedScreen(props) {
     const LOGIN = 'login';
     const REGISTER = 'register';
+
+    const lang = useContext(LanguageContext);
 
     const [formToShow, setFormToShow] = useState(LOGIN);
     const [isLangSelectorShown, setLangSelectorState] = useState(false);
@@ -37,7 +41,7 @@ export default function UnauthorizedScreen(props) {
                 className="unauthorized-screen__language-selector"
                 onClick={showLanguageSelector}
             >
-                Change Language
+                {l10n['change-lang'][lang]}
             </button>
 
             {isLangSelectorShown && (

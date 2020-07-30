@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 
 import { EXAMPLE_PASSWORD, EXAMPLE_USER_NAME } from "~/constants";
 import { useFormInput } from "~/tools/tools";
+import { LanguageContext } from "~/components/App";
+import { l10n } from "~/l10n";
 
 export default function LoginForm(props) {
     const userName = useFormInput('');
     const password = useFormInput('');
 
+    const lang = useContext(LanguageContext);
+
     return (
         <div className="unauthorized-screen__form">
             <form onSubmit={onSubmit}>
-                <h2>Log in</h2>
+                <h2>{l10n['log-in'][lang]}</h2>
                 <div className="form-group">
-                    <label htmlFor="username">User name:</label>
+                    <label htmlFor="username">{l10n['user-name'][lang]}</label>
                     <input type="text" id="username" name="username" required autoFocus {...userName}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password">{l10n['password'][lang]}</label>
                     <input type="password" id="password" name="password" required {...password}/>
                 </div>
                 <div className="form-group form-group--buttons">
-                    <button type="submit" className="button-primary">Log in</button>
-                    <button type="button" onClick={props.switchCallback} className="button-secondary">Register</button>
+                    <button type="submit" className="button-primary">{l10n['log-in-button'][lang]}</button>
+                    <button type="button" onClick={props.switchCallback} className="button-secondary">{l10n['register-button'][lang]}</button>
                 </div>
                 <div className="form-group form-group--bottom">
-                    <button type="button" onClick={loginAsExampleUser} className="button-secondary">Log in as example user</button>
+                    <button type="button" onClick={loginAsExampleUser} className="button-secondary">{l10n['log-in-as-example'][lang]}</button>
                 </div>
             </form>
         </div>

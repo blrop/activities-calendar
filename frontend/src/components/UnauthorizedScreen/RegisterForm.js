@@ -11,7 +11,7 @@ export default function RegisterForm(props) {
     const [passwordError, setPasswordError] = useState(null);
 
     return (
-        <div className="unauthorized-screen-form">
+        <div className="unauthorized-screen__form">
             <form onSubmit={onSubmit}>
                 <h2>Register</h2>
                 <div className="form-group">

@@ -9,7 +9,7 @@ export default function LoginForm(props) {
     const password = useFormInput('');
 
     return (
-        <div className="unauthorized-screen-form">
+        <div className="unauthorized-screen__form">
             <form onSubmit={onSubmit}>
                 <h2>Log in</h2>
                 <div className="form-group">

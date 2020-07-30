@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import LangSelector from "~/components/LangSelector/LangSelector";
+import ToolDialog from "~/components/ToolDialog/ToolDialog";
+
 import './UnauthorizedScreen.scss';
 
 export default function UnauthorizedScreen(props) {
@@ -10,17 +13,40 @@ export default function UnauthorizedScreen(props) {
     const REGISTER = 'register';
 
     const [formToShow, setFormToShow] = useState(LOGIN);
+    const [isLangSelectorShown, setLangSelectorState] = useState(false);
 
+    let form;
     switch (formToShow) {
         case LOGIN:
-            return <LoginForm switchCallback={showRegisterForm} loginAction={props.loginAction}/>;
+            form = <LoginForm switchCallback={showRegisterForm} loginAction={props.loginAction}/>;
+            break;
 
         case REGISTER:
-            return <RegisterForm switchCallback={showLoginForm} registerAction={onRegisterFormSubmit}/>;
+            form = <RegisterForm switchCallback={showLoginForm} registerAction={onRegisterFormSubmit}/>;
+            break;
 
         default:
-            return null;
+            form = null;
     }
+
+    return (
+        <>
+            {form}
+
+            <button
+                className="unauthorized-screen__language-selector"
+                onClick={showLanguageSelector}
+            >
+                Change Language
+            </button>
+
+            {isLangSelectorShown && (
+                <ToolDialog closeCallback={hideLanguageSelector}>
+                    <LangSelector onSelect={onLanguageSelect}/>
+                </ToolDialog>
+            )}
+        </>
+    );
 
     function showLoginForm() {
         setFormToShow(LOGIN);
@@ -38,9 +64,23 @@ export default function UnauthorizedScreen(props) {
                 }
             });
     }
+
+    function showLanguageSelector() {
+        setLangSelectorState(true);
+    }
+
+    function hideLanguageSelector() {
+        setLangSelectorState(false);
+    }
+
+    function onLanguageSelect(langCode) {
+        props.setLanguage(langCode);
+        setLangSelectorState(false);
+    }
 }
 
 UnauthorizedScreen.propTypes = {
     loginAction: PropTypes.func.isRequired,
     registerAction: PropTypes.func.isRequired,
+    setLanguage: PropTypes.func.isRequired,
 }

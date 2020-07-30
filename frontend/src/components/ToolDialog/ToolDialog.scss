@@ -1,0 +1,29 @@
+@import 'src/constants';
+
+.tool-dialog {
+    &__overlay {
+        z-index: 10;
+        position: fixed;
+        background: rgba(0, 0, 0, 0.3);
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__content {
+        border: 1px solid $border-color;
+        padding: 20px;
+        position: relative;
+        background: $bg-color;
+    }
+
+    &__close-button {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+}

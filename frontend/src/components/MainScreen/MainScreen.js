@@ -6,12 +6,16 @@ import Activities from "~/components/MainScreen/Activities/ActivitiesContainer";
 import ActivityLogItem from "~/components/MainScreen/ActivityLogItem/ActivityLogItem";
 import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
 import PasswordChangeForm from "./PasswordChangeForm";
+import LangSelector from "~/components/LangSelector/LangSelector";
+import ToolDialog from "~/components/ToolDialog/ToolDialog";
 
 import './MainScreen.scss';
 import "~/components/dialog.scss";
 
 export default function MainScreen(props) {
     const {
+        setLanguage,
+
         loadActivities,
         loadLog,
 
@@ -38,34 +42,20 @@ export default function MainScreen(props) {
     }, [loadActivities, loadLog]);
 
     const [isMenuOpen, setMenuState] = useState(false);
+    const [isLangSelectorShown, setLangSelectorState] = useState(false);
 
     return (
         <div className="screen-wrapper">
             <div className="screen-header">
                 <div className="screen-header__item">
-                    <button
-                        className={classNames(
-                            'screen-header__menu-button', {
-                                'icon-menu': !isMenuOpen,
-                                'icon-close': isMenuOpen,
-                            }
-                        )}
-                        aria-label={isMenuOpen ? 'Close' : 'Menu'}
-                        onClick={toggleMenuState}
-                    />
+                    {renderMenuButton()}
                 </div>
                 <div className="screen-header__item">
-                    {user.name}
+                    Hi, <b>{user.name}</b>
                 </div>
             </div>
 
-            {isMenuOpen &&
-                <div className="screen-menu">
-                    <button className="screen-menu__item" onClick={editActivitiesButtonPressed}>Edit Activities</button>
-                    <button className="screen-menu__item" onClick={passwordChangeButtonPressed}>Change Password</button>
-                    <button className="screen-menu__item" onClick={logout}>Log out</button>
-                </div>
-            }
+            {isMenuOpen && renderMenu()}
 
             <div className="screen-body">
                 <div className="screen-body__block">
@@ -101,15 +91,82 @@ export default function MainScreen(props) {
                 onSubmit={passwordChange}
                 onClose={passwordDialogCancelButtonPressed}
             />}
+
+            {isLangSelectorShown && (
+                <ToolDialog closeCallback={hideLanguageSelector}>
+                    <LangSelector onSelect={onLanguageSelect}/>
+                </ToolDialog>
+            )}
         </div>
     );
+
+    function renderMenu() {
+        return (
+            <div className="screen-menu">
+                <button
+                    className="screen-menu__item"
+                    onClick={editActivitiesButtonPressed}
+                >
+                    Edit Activities
+                </button>
+                <button
+                    className="screen-menu__item"
+                    onClick={passwordChangeButtonPressed}
+                >
+                    Change Password
+                </button>
+                <button
+                    className="screen-menu__item"
+                    onClick={showLanguageSelector}
+                >
+                    Change Language
+                </button>
+                <button
+                    className="screen-menu__item"
+                    onClick={logout}
+                >
+                    Log out
+                </button>
+            </div>
+        );
+    }
+
+    function renderMenuButton() {
+        return (
+            <button
+                className={classNames(
+                    'screen-header__menu-button', {
+                        'icon-menu': !isMenuOpen,
+                        'icon-close': isMenuOpen,
+                    }
+                )}
+                aria-label={isMenuOpen ? 'Close' : 'Menu'}
+                onClick={toggleMenuState}
+            />
+        );
+    }
 
     function toggleMenuState() {
         setMenuState(!isMenuOpen);
     }
+
+    function showLanguageSelector() {
+        setLangSelectorState(true);
+    }
+
+    function hideLanguageSelector() {
+        setLangSelectorState(false);
+    }
+
+    function onLanguageSelect(langCode) {
+        setLanguage(langCode);
+        setLangSelectorState(false);
+    }
 }
 
 MainScreen.propTypes = {
+    setLanguage: PropTypes.func.isRequired,
+
     loadActivities: PropTypes.func.isRequired,
     loadLog: PropTypes.func.isRequired,
 

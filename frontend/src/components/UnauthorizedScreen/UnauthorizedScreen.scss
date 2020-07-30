@@ -1,10 +1,18 @@
-.unauthorized-screen-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.unauthorized-screen {
+    &__form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
 
-    .form-group--bottom {
-        text-align: center;
+        .form-group--bottom {
+            text-align: center;
+        }
+    }
+
+    &__language-selector {
+        position: absolute;
+        right: 5px;
+        top: 5px;
     }
 }

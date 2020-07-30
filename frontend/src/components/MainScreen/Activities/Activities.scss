@@ -32,7 +32,7 @@
         @each $key, $value in $activity-colors {
             &--color-#{$key} {
                 button {
-                    box-shadow: 0 0 2px 1px $value inset;
+                    box-shadow: 0 0 4px 2px $value inset;
                 }
             }
             &--color-#{$key}#{&}--active {

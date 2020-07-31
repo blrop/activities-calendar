@@ -13,11 +13,11 @@ export const l10n = {
     },
     'user-name': {
         en: 'User name:',
-        ru: 'Имя пользователя',
+        ru: 'Имя пользователя:',
     },
     'password': {
         en: 'Password:',
-        ru: 'Пароль',
+        ru: 'Пароль:',
     },
     'log-in-button': {
         en: 'Log in',

@@ -70,16 +70,43 @@
     }
 }
 
+@each $key, $value in $activity-colors {
+    .color-#{$key} {
+        background: $value;
+    }
+}
+
 .color-select {
-    width: 150px;
+    &__button {
+        display: flex;
+        align-items: center;
+    }
 
-    @each $key, $value in $activity-colors {
-        &--color-#{$key} {
-            background: $value;
-        }
+    &__button-indicator {
+        width: 50px;
+        height: 15px;
+        margin-right: 10px;
+    }
 
-        &__option#{&}__option--color-#{$key} {
-            background: $value;
+    &__button-text {
+
+    }
+
+    &__items {
+        display: inline-grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-column-gap: 5px;
+        grid-row-gap: 5px;
+    }
+
+    &__item {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+
+        &--selected,
+        &:hover {
+            box-shadow: 0 0 0 2px white;
         }
     }
 }

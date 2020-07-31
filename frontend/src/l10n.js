@@ -25,7 +25,7 @@ export const l10n = {
     },
     'register-button': {
         en: 'Register',
-        ru: '',
+        ru: 'Регистрация',
     },
     'log-in-as-example': {
         en: 'Log in as example user',

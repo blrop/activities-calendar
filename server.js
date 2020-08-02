@@ -12,6 +12,7 @@ const SAMPLE_ACTIVITIES_FOR_NEW_USERS = [
         "colorId": "10"
     }
 ];
+const EXAMPLE_USER_NAME = 'example';
 
 const express = require('express');
 const app = express();
@@ -89,6 +90,13 @@ app.post('/user/logout', (request, response) => {
 });
 
 app.post('/user/password-change', checkAuthenticated, async (request, response) => {
+    if (request.user.name === EXAMPLE_USER_NAME) {
+        response
+            .status(403)
+            .json({ success: false, message: 'Password of example user cannot be changed' });
+        return;
+    }
+
     const isOldPasswordCorrect = await bcrypt.compare(request.body.password, request.user.password);
     if (!isOldPasswordCorrect) {
         response

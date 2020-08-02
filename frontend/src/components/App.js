@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 
 import MainScreen from "~/components/MainScreen/MainScreenContainer";
 import UnauthorizedScreen from "./UnauthorizedScreen/UnauthorizedScreen";
-import { DEFAULT_LANGUAGE } from "~/constants";
+import { DEFAULT_LANGUAGE, LANGUAGE_LOCAL_STORAGE_KEY } from "~/constants";
 import './common.scss';
 
-export const LanguageContext = React.createContext(DEFAULT_LANGUAGE);
+const initialLanguage = localStorage.getItem(LANGUAGE_LOCAL_STORAGE_KEY) || DEFAULT_LANGUAGE;
+
+export const LanguageContext = React.createContext(initialLanguage);
 
 export default function App(props) {
     const { checkIsLoggedIn } = props;
@@ -14,7 +16,7 @@ export default function App(props) {
     useEffect(() => {
         checkIsLoggedIn();
     }, [checkIsLoggedIn]);
-    const [language, setLanguage] = useState(DEFAULT_LANGUAGE);
+    const [language, setLanguage] = useState(initialLanguage);
 
     if (props.isLoggedIn === null) {
         return 'Loading...'; // todo: remove when loading indicator is implemented
@@ -22,9 +24,9 @@ export default function App(props) {
 
     let screen;
     if (props.isLoggedIn) {
-        screen = <MainScreen setLanguage={setLanguage}/>;
+        screen = <MainScreen setLanguage={onSetLanguage}/>;
     } else {
-        screen = <UnauthorizedScreen loginAction={props.login} registerAction={props.register} setLanguage={setLanguage}/>
+        screen = <UnauthorizedScreen loginAction={props.login} registerAction={props.register} setLanguage={onSetLanguage}/>
     }
 
     return (
@@ -32,6 +34,11 @@ export default function App(props) {
             {screen}
         </LanguageContext.Provider>
     );
+
+    function onSetLanguage(lang) {
+        localStorage.setItem(LANGUAGE_LOCAL_STORAGE_KEY, lang);
+        setLanguage(lang);
+    }
 }
 
 App.propTypes = {

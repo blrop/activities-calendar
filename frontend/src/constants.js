@@ -15,3 +15,4 @@ export const AVAILABLE_LANGUAGES = [
     }
 ];
 export const DEFAULT_LANGUAGE = AVAILABLE_LANGUAGES[0].code;
+export const LANGUAGE_LOCAL_STORAGE_KEY = 'app-lang';

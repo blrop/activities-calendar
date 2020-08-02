@@ -7,7 +7,7 @@ import EditableActivity from "./EditableActivity";
 import './ActivitiesEditor.scss';
 import { DEFAULT_ACTIVITY_COLOR_ID } from "~/constants";
 import { LanguageContext } from "~/components/App";
-import { l10n } from "~/l10n";
+import { createLangGetter } from "~/tools/tools";
 
 export default function ActivitiesEditor(props) {
     const DTO = {
@@ -24,7 +24,7 @@ export default function ActivitiesEditor(props) {
         }
     };
 
-    const lang = useContext(LanguageContext);
+    const lang = createLangGetter(useContext(LanguageContext));
 
     const activitiesInitialState = DTO.toInternalFormat(props.activities);
     const [activities, setActivities] = useState(activitiesInitialState);
@@ -33,7 +33,7 @@ export default function ActivitiesEditor(props) {
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <form onSubmit={onSubmit} className="modal-dialog">
                 <div className="modal-dialog__header">
-                    <h2 className="modal-dialog__title">{l10n['edit-activities'][lang]}</h2>
+                    <h2 className="modal-dialog__title">{lang('edit-activities')}</h2>
                     <button
                         className="modal-dialog__close-button icon-close"
                         aria-label="Close"

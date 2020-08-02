@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { useState } from "react";
 
+import { l10n } from "~/l10n";
+
 export const formatDate = (date) => {
     return moment(date).format('YYYY-MM-DD');
 };
@@ -53,3 +55,7 @@ export const errorMiddleware = (data) => {
 export const onError = (error) => {
     console.log(error.message);
 };
+
+export const createLangGetter = (lang) => (key) => {
+    return l10n[key][lang];
+}

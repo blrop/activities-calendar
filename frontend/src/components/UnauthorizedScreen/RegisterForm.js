@@ -13,7 +13,7 @@ export default function RegisterForm(props) {
     return (
         <div className="unauthorized-screen__form">
             <form onSubmit={onSubmit}>
-                <h2>Register</h2>
+                <h1>Register</h1>
                 <div className="form-group">
                     <label htmlFor="username">User name:</label>
                     <input type="text" id="username" name="username" required autoFocus {...userName}/>

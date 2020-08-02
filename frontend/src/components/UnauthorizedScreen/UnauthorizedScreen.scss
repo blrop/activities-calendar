@@ -8,6 +8,17 @@
         .form-group--bottom {
             text-align: center;
         }
+
+        h1 {
+            margin-top: 0;
+        }
+    }
+
+    &__form-divider {
+        margin: 20px;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 24px;
     }
 
     &__language-selector {

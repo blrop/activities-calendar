@@ -33,7 +33,7 @@ export default function ActivitiesEditor(props) {
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <form onSubmit={onSubmit} className="modal-dialog">
                 <div className="modal-dialog__header">
-                    <h2 className="modal-dialog__title">{lang('edit-activities')}</h2>
+                    <h2 className="modal-dialog__title">{lang('ae-edit-activities')}</h2>
                     <button
                         className="modal-dialog__close-button icon-close"
                         aria-label="Close"
@@ -47,13 +47,13 @@ export default function ActivitiesEditor(props) {
                             {renderBody()}
                         </div>
                         <div className="editable-activities__new">
-                            <button type="button" onClick={addNewActivity}>Add activity</button>
+                            <button type="button" onClick={addNewActivity}>{lang('ae-add-activity')}</button>
                         </div>
                     </div>
                 </div>
                 <div className="modal-dialog__buttons">
-                    <button type="submit" className="button-primary">Save changes</button>
-                    <button type="button" className="button-secondary" onClick={props.onClose}>Cancel</button>
+                    <button type="submit" className="button-primary">{lang('ae-save-changes')}</button>
+                    <button type="button" className="button-secondary" onClick={props.onClose}>{lang('ae-cancel')}</button>
                 </div>
             </form>
         </div>

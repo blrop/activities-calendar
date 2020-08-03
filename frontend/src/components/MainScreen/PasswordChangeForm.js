@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormInput } from "~/tools/tools";
 import PropTypes from 'prop-types';
 
+import { LanguageContext } from "~/components/App";
+import { createLangGetter } from "~/tools/tools";
+
 export default function PasswordChangeForm(props) {
+    const lang = createLangGetter(useContext(LanguageContext));
+
     const password = useFormInput('');
     const newPassword = useFormInput('');
     const newPassword2 = useFormInput('');
@@ -13,7 +18,7 @@ export default function PasswordChangeForm(props) {
         <div className="modal-dialog-wrapper" onClick={onWrapperClick}>
             <form onSubmit={onSubmit} className="modal-dialog">
                 <div className="modal-dialog__header">
-                    <h2 className="modal-dialog__title">Password change</h2>
+                    <h2 className="modal-dialog__title">{lang('pcf-password-change')}</h2>
                     <button
                         className="modal-dialog__close-button icon-close"
                         aria-label="Close"
@@ -23,22 +28,22 @@ export default function PasswordChangeForm(props) {
                 </div>
                 <div className="modal-dialog__body modal-dialog__body--password-change">
                     <div className="form-group">
-                        <label htmlFor="password">Old Password:</label>
+                        <label htmlFor="password">{lang('pcf-old-password')}</label>
                         <input type="password" id="password" required {...password}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="new-password">New Password:</label>
+                        <label htmlFor="new-password">{lang('pcf-new-password')}</label>
                         <input type="password" id="new-password" required {...newPassword}/>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="new-password2">Repeat New Password:</label>
+                        <label htmlFor="new-password2">{lang('pcf-repeat-password')}</label>
                         <input type="password" id="new-password2" required {...newPassword2}/>
                         {passwordError ? <div className="form-group__error">{passwordError}</div> : null}
                     </div>
                 </div>
                 <div className="modal-dialog__buttons">
-                    <button type="submit" className="button-primary">Save</button>
-                    <button type="button" className="button-secondary" onClick={props.onClose}>Cancel</button>
+                    <button type="submit" className="button-primary">{lang('pcf-save')}</button>
+                    <button type="button" className="button-secondary" onClick={props.onClose}>{lang('pcf-cancel')}</button>
                 </div>
             </form>
         </div>
@@ -61,7 +66,7 @@ export default function PasswordChangeForm(props) {
                 newPassword: newPassword.value,
             });
         } else {
-            setPasswordError('Password doesn\'t match');
+            setPasswordError(lang('pcf-password-error'));
         }
     }
 };

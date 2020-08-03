@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import { COLOR_MAX_ID } from "~/constants";
 import ToolDialog from "~/components/ToolDialog/ToolDialog";
+import { LanguageContext } from "~/components/App";
+import { createLangGetter } from "~/tools/tools";
 
 export default function ColorSelect(props) {
+    const lang = createLangGetter(useContext(LanguageContext));
+
     const [isDialogShown, setDialogState] = useState(false);
 
     const colorIds = [...Array(COLOR_MAX_ID).keys()];
@@ -14,7 +18,7 @@ export default function ColorSelect(props) {
         <>
             <button type="button" onClick={showDialog} className="color-select__button">
                 <span className={`color-select__button-indicator color-${props.value}`}/>
-                <span className="color-select__button-text">Change Color...</span>
+                <span className="color-select__button-text">{lang('cs-change-color')}</span>
             </button>
 
             {isDialogShown && (

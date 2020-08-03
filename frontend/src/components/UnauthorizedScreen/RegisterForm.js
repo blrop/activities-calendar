@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from "prop-types";
 
-import { useFormInput } from "~/tools/tools";
+import { useFormInput, createLangGetter } from "~/tools/tools";
+import { LanguageContext } from "~/components/App";
 
 export default function RegisterForm(props) {
+    const lang = createLangGetter(useContext(LanguageContext));
+
     const userName = useFormInput('');
     const password = useFormInput('');
     const password2 = useFormInput('');
@@ -13,23 +16,23 @@ export default function RegisterForm(props) {
     return (
         <div className="unauthorized-screen__form">
             <form onSubmit={onSubmit}>
-                <h1>Register</h1>
+                <h1>{lang('rf-register')}</h1>
                 <div className="form-group">
-                    <label htmlFor="username">User name:</label>
+                    <label htmlFor="username">{lang('rf-user-name')}</label>
                     <input type="text" id="username" name="username" required autoFocus {...userName}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password">{lang('rf-password')}</label>
                     <input type="password" id="password" name="password" required {...password}/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password2">Repeat Password:</label>
+                    <label htmlFor="password2">{lang('rf-repeat-password')}</label>
                     <input type="password" id="password2" name="password2" required {...password2}/>
                     {passwordError ? <div className="form-group__error">{passwordError}</div> : null}
                 </div>
                 <div className="form-group form-group--buttons">
-                    <button type="submit" className="button-primary">Register</button>
-                    <button type="button" onClick={props.switchCallback} className="button-secondary">Login</button>
+                    <button type="submit" className="button-primary">{lang('rf-register-button')}</button>
+                    <button type="button" onClick={props.switchCallback} className="button-secondary">{lang('rf-login-button')}</button>
                 </div>
             </form>
         </div>
@@ -43,7 +46,7 @@ export default function RegisterForm(props) {
 
             props.registerAction(userName.value, password.value);
         } else {
-            setPasswordError('Password doesn\'t match');
+            setPasswordError(lang('rf-password-error-msg'));
         }
     }
 }

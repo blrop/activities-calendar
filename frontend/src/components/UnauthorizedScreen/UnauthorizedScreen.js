@@ -41,7 +41,7 @@ export default function UnauthorizedScreen(props) {
                 className="unauthorized-screen__language-selector"
                 onClick={showLanguageSelector}
             >
-                {lang('change-lang')}
+                {lang('us-choose-lang')}
             </button>
 
             {isLangSelectorShown && (

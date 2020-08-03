@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import classNames from 'classnames';
 
@@ -8,6 +8,8 @@ import ActivitiesEditor from "~/components/ActivitiesEditor/ActivitiesEditor";
 import PasswordChangeForm from "./PasswordChangeForm";
 import LangSelector from "~/components/LangSelector/LangSelector";
 import ToolDialog from "~/components/ToolDialog/ToolDialog";
+import { LanguageContext } from "~/components/App";
+import { createLangGetter } from "~/tools/tools";
 
 import './MainScreen.scss';
 import "~/components/dialog.scss";
@@ -36,6 +38,8 @@ export default function MainScreen(props) {
         passwordChange,
     } = props;
 
+    const lang = createLangGetter(useContext(LanguageContext));
+
     useEffect(() => {
         loadActivities();
         loadLog();
@@ -51,7 +55,7 @@ export default function MainScreen(props) {
                     {renderMenuButton()}
                 </div>
                 <div className="screen-header__item">
-                    Hi, <b>{user.name}</b>
+                    {lang('ms-hi')}, <b>{user.name}</b>
                 </div>
             </div>
 
@@ -59,11 +63,11 @@ export default function MainScreen(props) {
 
             <div className="screen-body">
                 <div className="screen-body__block">
-                    <div className="screen-body__title">Today</div>
+                    <div className="screen-body__title">{lang('ms-today')}</div>
                     <Activities />
                 </div>
                 <div className="screen-body__block">
-                    <div className="screen-body__title">Recently</div>
+                    <div className="screen-body__title">{lang('ms-recently')}</div>
                     {activityLog.map((item, index) => (
                         <ActivityLogItem item={item} key={index} />
                     ))}
@@ -72,12 +76,12 @@ export default function MainScreen(props) {
 
             <div className="screen-footer">
                 <div className="screen-footer__item">
-                    <span>Powered by:</span>
+                    <span>{lang('ms-powered-by')}</span>
                     <span className="screen-footer__react-icon" title="React"/>
                     <span className="screen-footer__node-icon" title="Node.js"/>
                 </div>
                 <div className="screen-footer__item">
-                    <a href="https://github.com/blrop/activities-calendar" target="_blank" rel="noopener noreferrer">Source</a>
+                    <a href="https://github.com/blrop/activities-calendar" target="_blank" rel="noopener noreferrer">{lang('ms-source')}</a>
                 </div>
             </div>
 
@@ -107,25 +111,25 @@ export default function MainScreen(props) {
                     className="screen-menu__item"
                     onClick={editActivitiesButtonPressed}
                 >
-                    Edit Activities
+                    {lang('ms-edit-activities')}
                 </button>
                 <button
                     className="screen-menu__item"
                     onClick={passwordChangeButtonPressed}
                 >
-                    Change Password
+                    {lang('ms-change-password')}
                 </button>
                 <button
                     className="screen-menu__item"
                     onClick={showLanguageSelector}
                 >
-                    Change Language
+                    {lang('ms-choose-lang')}
                 </button>
                 <button
                     className="screen-menu__item"
                     onClick={logout}
                 >
-                    Log out
+                    {lang('ms-logout')}
                 </button>
             </div>
         );
@@ -140,7 +144,7 @@ export default function MainScreen(props) {
                         'icon-close': isMenuOpen,
                     }
                 )}
-                aria-label={isMenuOpen ? 'Close' : 'Menu'}
+                aria-label={isMenuOpen ? lang('ms-close') : lang('ms-menu')}
                 onClick={toggleMenuState}
             />
         );

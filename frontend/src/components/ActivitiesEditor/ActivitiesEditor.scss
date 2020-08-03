@@ -43,6 +43,13 @@
             margin-right: 5px;
         }
     }
+
+    .restore-button {
+        &:before {
+            content: '\21ba';
+            margin-right: 5px;
+        }
+    }
 }
 
 .editable-activities {
